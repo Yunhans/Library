@@ -9,6 +9,10 @@ public abstract class Member {
         setPassword(password);
     }
 
+    public void login(){
+        
+    }
+
     public void setName(String name){
         this.name = name;
     }
