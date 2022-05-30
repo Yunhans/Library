@@ -75,17 +75,26 @@ public class Library {
 
     public void addBook(){
         sameBooks = "";
+        int id = 0, empty = 0;
         bookname = JOptionPane.showInputDialog(null, "輸入書名");
         bookauthor = JOptionPane.showInputDialog(null, "輸入作者");
         bookpublisher = JOptionPane.showInputDialog(null, "輸入出版社");
         for(Book book : library){
             if(book != null && bookname.equals(book.getbookname())){
                 sameBooks += book;
+            }else if(book == null){
+                empty = id;
             }
+            id++;
         }
         if(sameBooks == ""){
-            int id = library.size();
-            library.add(new Book(bookname, bookauthor, bookpublisher, id));
+            if(empty != 0){
+                id = empty;
+                library.set(id, new Book(bookname, bookauthor, bookpublisher, id));
+            }else{
+                id = library.size();
+                library.add(new Book(bookname, bookauthor, bookpublisher, id));
+            }
             JOptionPane.showMessageDialog(null, "新增成功");
         }else{
             JOptionPane.showMessageDialog(null, "此書已存在"+sameBooks, "新增書籍失敗", JOptionPane.ERROR_MESSAGE);
