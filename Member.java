@@ -13,6 +13,10 @@ public abstract class Member {
         
     }
 
+    public void menu(){
+        
+    }
+
     public void setName(String name){
         this.name = name;
     }

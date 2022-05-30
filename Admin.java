@@ -4,4 +4,8 @@ public abstract class Admin extends Member {
         super(name, account, password);
     }
 
+    public void menu(){
+        
+    }
+
 }

@@ -1,13 +1,15 @@
 public class Book {
-    private String bookname;
+	private String bookname;
 	private String bookauthor;
 	private String bookpublisher;
 	private boolean bookstatus = true;
+	private int bookID;
 
-	public Book(String bookname, String bookauthor, String bookpublisher){
+	public Book(String bookname, String bookauthor, String bookpublisher, int bookID){
 		setbookname(bookname);
 		setbookauthor(bookauthor);
 		setbookpublisher(bookpublisher);
+		setbookID(bookID);
 	}
 
 	public void setbookname(String bookname){this.bookname = bookname;}
@@ -22,7 +24,11 @@ public class Book {
 	public void setbookstatus(boolean bookstatus){this.bookstatus = bookstatus;}
 	public boolean getbookstatus(){return bookstatus;}
 
-    public String toString(){
-		return "書名 : " + getbookname() + " 作者 : " + getbookauthor() + " 出版社 : " + getbookpublisher() + " 狀態 : " + ((getbookstatus() == true)? "已出借\n":"庫中\n");
+	public void setbookID(int bookID){this.bookID = bookID;}
+	public int getbookID(){return bookID;}
+
+	public String toString(){
+		//return "ID: " + getbookID() + "書名 : " + getbookname() + " 作者 : " + getbookauthor() + " 出版社 : " + getbookpublisher() + " 狀態 : " + ((getbookstatus() == true)? "已出借\n":"庫中\n");
+        return String.format("ID : %03d\t書名 : %s\t作者 : %s\t出版社 : %s\t"+(getbookstatus()==true? "已出借\n" : "庫中"), getbookID(), getbookname(), getbookauthor(), getbookpublisher());
 	}
 }

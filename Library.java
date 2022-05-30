@@ -1,15 +1,13 @@
 import java.util.ArrayList;
 public class Library {
-    public static ArrayList<Book> library = new ArrayList<>();
-
-    public void setLibrary(){
-        library.add(new Book("Harry Potter", "J.K.Rowling", "Bloomsbury Publishing plc"));
-    }
+    public static ArrayList<Book> library = new ArrayList<>(){{
+        add(0, new Book("Harry Potter", "J.K.Rowling", "Bloomsbury Publishing plc", 0));
+    }};
 
     public String getLibrary(){
         String allBooks = "";
         for(Book book : library){
-            allBooks += book;
+            allBooks += book.toString();
         }
         return allBooks;
     }
@@ -45,7 +43,10 @@ public class Library {
     }
 
     public void addBook(String bookname, String bookauthor, String bookpublisher){
-        
+        for(int i=0; i<=library.size(); i++){
+            
+            library.add(new Book(bookname, bookauthor, bookpublisher, i));
+        }
     }
 
     public void editBook(){
