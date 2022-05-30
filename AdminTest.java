@@ -1,6 +1,6 @@
 public class AdminTest {
     public static void main (String [] args) {
-        Library l = new Library();
-        System.out.println(l.getLibrary());
+        Admin admin = new Admin("Hugo", "1", "1");
+        admin.menu();
     }
 }
