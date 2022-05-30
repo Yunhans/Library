@@ -3,9 +3,16 @@ public class Admin extends Member {
 
     Library l = new Library();
 
+    private String identity = "admin";
+
     public Admin(String name, String account, String password){
         super(name, account, password);
     }
+
+    public String getIdentity(){
+        return identity;
+    }
+    
 
     public void menu(){
         String [] menuOptions = {"新增書籍", "修改書籍資訊", "刪除書籍", "查詢書籍", "顯示所有書籍", "離開"};

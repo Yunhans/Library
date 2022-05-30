@@ -13,7 +13,9 @@ public class Library {
     public String getLibrary(){
         String allBooks = "";
         for(Book book : library){
-            allBooks += book.toString();
+            if(book!=null){
+                allBooks += book.toString();
+            }
         }
         JOptionPane.showMessageDialog(null, allBooks, "所有館藏", JOptionPane.INFORMATION_MESSAGE);
         return allBooks;
@@ -41,7 +43,7 @@ public class Library {
     public String searchbyName(){
         bookname = JOptionPane.showInputDialog(null, "輸入書名", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         for(Book book : library){
-            if(bookname.equals(book.getbookname())){
+            if(book != null && bookname.equals(book.getbookname())){
                 sameBooks += book;
             }
         }
@@ -52,7 +54,7 @@ public class Library {
     public String searchbyAuthor(){
         bookauthor = JOptionPane.showInputDialog(null, "輸入作者", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         for(Book book : library){
-            if(bookauthor.equals(book.getbookauthor())){
+            if(book != null && bookauthor.equals(book.getbookauthor())){
                 sameBooks += book;
             }
         }
@@ -63,7 +65,7 @@ public class Library {
     public String searchbyPublisher(){
         bookpublisher = JOptionPane.showInputDialog(null, "輸入出版社", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         for(Book book : library){
-            if(bookpublisher.equals(book.getbookpublisher())){
+            if(book != null && bookpublisher.equals(book.getbookpublisher())){
                 sameBooks += book;
             }
         }
@@ -77,22 +79,24 @@ public class Library {
         bookauthor = JOptionPane.showInputDialog(null, "輸入作者");
         bookpublisher = JOptionPane.showInputDialog(null, "輸入出版社");
         for(Book book : library){
-            if(bookname.equals(book.getbookname())){
+            if(book != null && bookname.equals(book.getbookname())){
                 sameBooks += book;
             }
         }
         if(sameBooks == ""){
-            library.add(library.size(), new Book(bookname, bookauthor, bookpublisher,library.size()));
+            int id = library.size();
+            library.add(new Book(bookname, bookauthor, bookpublisher, id));
             JOptionPane.showMessageDialog(null, "新增成功");
         }else{
-            JOptionPane.showMessageDialog(null, sameBooks, "此書已存在", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "此書已存在"+sameBooks, "新增書籍失敗", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void deleteBook(){
+        sameBooks = "";
         bookname = JOptionPane.showInputDialog(null, "輸入書名", "刪除書籍", JOptionPane.QUESTION_MESSAGE);
         for(Book book : library){
-            if(bookname.equals(book.getbookname())){
+            if(book != null && bookname.equals(book.getbookname())){
                 sameBooks += book;
             }
         }
@@ -102,7 +106,7 @@ public class Library {
             int id = Integer.parseInt(JOptionPane.showInputDialog(null, sameBooks+"\n輸入要刪除的書的ID:", "刪除書籍", JOptionPane.QUESTION_MESSAGE));
             int option = JOptionPane.showConfirmDialog(null, "確定要刪除以下書籍嗎?\n"+library.get(id));
             if(option == 0){
-                library.remove(id);
+                library.set(id, null);
                 JOptionPane.showMessageDialog(null, "刪除成功");
             }else{
                 deleteBook();
@@ -111,9 +115,10 @@ public class Library {
     }
 
     public void editBook(){
+        sameBooks = "";
         bookname = JOptionPane.showInputDialog(null, "輸入書名", "修改書籍", JOptionPane.QUESTION_MESSAGE);
         for(Book book : library){
-            if(bookname.equals(book.getbookname())){
+            if(book != null && bookname.equals(book.getbookname())){
                 sameBooks += book;
             }
         }
