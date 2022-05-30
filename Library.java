@@ -8,14 +8,14 @@ public class Library {
     private String bookname;
 	private String bookauthor;
 	private String bookpublisher;
-    private String sameBooks = null;
+    private String sameBooks = "";
 
     public String getLibrary(){
         String allBooks = "";
         for(Book book : library){
             allBooks += book.toString();
         }
-        JOptionPane.showMessageDialog(null, allBooks);
+        JOptionPane.showMessageDialog(null, allBooks, "所有館藏", JOptionPane.INFORMATION_MESSAGE);
         return allBooks;
     }
 
@@ -35,12 +35,11 @@ public class Library {
                 searchbyPublisher();
                 break;
         }
-
         return sameBooks;
     }
 
     public String searchbyName(){
-        bookname = JOptionPane.showInputDialog(null, "輸入書名");
+        bookname = JOptionPane.showInputDialog(null, "輸入書名", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         for(Book book : library){
             if(bookname.equals(book.getbookname())){
                 sameBooks += book;
@@ -51,7 +50,7 @@ public class Library {
     } 
 
     public String searchbyAuthor(){
-        bookauthor = JOptionPane.showInputDialog(null, "輸入作者");
+        bookauthor = JOptionPane.showInputDialog(null, "輸入作者", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         for(Book book : library){
             if(bookauthor.equals(book.getbookauthor())){
                 sameBooks += book;
@@ -62,7 +61,7 @@ public class Library {
     } 
 
     public String searchbyPublisher(){
-        bookpublisher = JOptionPane.showInputDialog(null, "輸入出版社");
+        bookpublisher = JOptionPane.showInputDialog(null, "輸入出版社", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         for(Book book : library){
             if(bookpublisher.equals(book.getbookpublisher())){
                 sameBooks += book;
@@ -90,11 +89,65 @@ public class Library {
         }
     }
 
-    public void editBook(){
-
+    public void deleteBook(){
+        bookname = JOptionPane.showInputDialog(null, "輸入書名", "刪除書籍", JOptionPane.QUESTION_MESSAGE);
+        for(Book book : library){
+            if(bookname.equals(book.getbookname())){
+                sameBooks += book;
+            }
+        }
+        if(sameBooks==""){
+            JOptionPane.showMessageDialog(null, "查無此書", "刪除書籍",JOptionPane.ERROR_MESSAGE);
+        }else{
+            int id = Integer.parseInt(JOptionPane.showInputDialog(null, sameBooks+"\n輸入要刪除的書的ID:", "刪除書籍", JOptionPane.QUESTION_MESSAGE));
+            int option = JOptionPane.showConfirmDialog(null, "確定要刪除以下書籍嗎?\n"+library.get(id));
+            if(option == 0){
+                library.remove(id);
+                JOptionPane.showMessageDialog(null, "刪除成功");
+            }else{
+                deleteBook();
+            }
+        }
     }
 
-    public void deleteBook(){
-        
+    public void editBook(){
+        bookname = JOptionPane.showInputDialog(null, "輸入書名", "修改書籍", JOptionPane.QUESTION_MESSAGE);
+        for(Book book : library){
+            if(bookname.equals(book.getbookname())){
+                sameBooks += book;
+            }
+        }
+        if(sameBooks==""){
+            JOptionPane.showMessageDialog(null, "查無此書", "修改書籍",JOptionPane.ERROR_MESSAGE);
+        }else{
+            int id = Integer.parseInt(JOptionPane.showInputDialog(null, sameBooks+"\n輸入要修改的書的ID:", "修改書籍", JOptionPane.QUESTION_MESSAGE));
+            bookname = library.get(id).getbookname();
+            bookauthor = library.get(id).getbookauthor();
+            bookpublisher = library.get(id).getbookpublisher();
+            int option = JOptionPane.showConfirmDialog( null, "確定要修改以下書籍嗎?\n"+library.get(id));
+            if(option == 0){
+                String [] searchOptions = {"書名", "作者", "出版商"};
+                int searchOption = JOptionPane.showOptionDialog(null, "選擇修改", "書籍", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, searchOptions, searchOptions[0]);
+
+                switch(searchOption){
+                    case 0:
+                        bookname = JOptionPane.showInputDialog(null, "原書名: "+library.get(id).getbookname()+"\n修改為: ");
+                        JOptionPane.showMessageDialog(null, "修改成功");
+                        break;
+                    case 1:
+                        bookauthor = JOptionPane.showInputDialog(null, "原作者: "+library.get(id).getbookauthor()+"\n修改為: ");
+                        JOptionPane.showMessageDialog(null, "修改成功");
+                        break;
+                    case 2:
+                        bookpublisher = JOptionPane.showInputDialog(null, "原出版社: "+library.get(id).getbookpublisher()+"\n修改為: ");
+                        JOptionPane.showMessageDialog(null, "修改成功");
+                        break;
+                }
+                library.set(id, new Book(bookname, bookauthor, bookpublisher, id));
+            }else{
+                deleteBook();
+            }
+            
+        }
     }
 }
