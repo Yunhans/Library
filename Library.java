@@ -95,7 +95,7 @@ public class Library {
                 id = library.size();
                 library.add(new Book(bookname, bookauthor, bookpublisher, id));
             }
-            JOptionPane.showMessageDialog(null, "新增成功");
+            JOptionPane.showMessageDialog(null, "新增成功\n"+library.get(id), "新增書籍", JOptionPane.INFORMATION_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(null, "此書已存在"+sameBooks, "新增書籍失敗", JOptionPane.ERROR_MESSAGE);
         }
