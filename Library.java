@@ -10,12 +10,13 @@ public class Library {
 	private String bookpublisher;
     private String sameBooks = null;
 
-    public void getLibrary(){
+    public String getLibrary(){
         String allBooks = "";
         for(Book book : library){
             allBooks += book.toString();
         }
         JOptionPane.showMessageDialog(null, allBooks);
+        return allBooks;
     }
 
     public String searchBook(){
