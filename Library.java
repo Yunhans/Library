@@ -127,7 +127,7 @@ public class Library {
             int option = JOptionPane.showConfirmDialog( null, "確定要修改以下書籍嗎?\n"+library.get(id));
             if(option == 0){
                 String [] searchOptions = {"書名", "作者", "出版商"};
-                int searchOption = JOptionPane.showOptionDialog(null, "選擇修改", "書籍", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, searchOptions, searchOptions[0]);
+                int searchOption = JOptionPane.showOptionDialog(null, "選擇修改", "修改書籍", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, searchOptions, searchOptions[0]);
 
                 switch(searchOption){
                     case 0:
