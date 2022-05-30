@@ -21,4 +21,8 @@ public class Book {
 
 	public void setbookstatus(boolean bookstatus){this.bookstatus = bookstatus;}
 	public boolean getbookstatus(){return bookstatus;}
+
+    public String toString(){
+		return "書名 : " + getbookname() + " 作者 : " + getbookauthor() + " 出版社 : " + getbookpublisher() + " 狀態 : " + ((getbookstatus() == true)? "已出借\n":"庫中\n");
+	}
 }
