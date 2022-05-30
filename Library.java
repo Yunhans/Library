@@ -14,7 +14,7 @@ public class Library {
         return allBooks;
     }
 
-    public String serchBookbyName(String name){
+    public String serchbyName(String name){
         String sameBooks = null;
         for(Book book : library){
             if(name.equals(book.getbookname())){
@@ -24,7 +24,7 @@ public class Library {
         return sameBooks==null? "查無此書" : sameBooks;
     } 
 
-    public String serchBookbyAuthor(String author){
+    public String serchbyAuthor(String author){
         String sameBooks = null;
         for(Book book : library){
             if(author.equals(book.getbookauthor())){
@@ -34,7 +34,7 @@ public class Library {
         return sameBooks==null? "查無此書" : sameBooks;
     } 
 
-    public String serchBookbyPublisher(String publisher){
+    public String serchbyPublisher(String publisher){
         String sameBooks = null;
         for(Book book : library){
             if(publisher.equals(book.getbookpublisher())){
@@ -44,8 +44,8 @@ public class Library {
         return sameBooks==null? "查無此書" : sameBooks;
     }
 
-    public void addBook(){
-
+    public void addBook(String bookname, String bookauthor, String bookpublisher){
+        
     }
 
     public void editBook(){
