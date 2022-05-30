@@ -28,7 +28,6 @@ public class Book {
 	public int getbookID(){return bookID;}
 
 	public String toString(){
-		//return "ID: " + getbookID() + "書名 : " + getbookname() + " 作者 : " + getbookauthor() + " 出版社 : " + getbookpublisher() + " 狀態 : " + ((getbookstatus() == true)? "已出借\n":"庫中\n");
         return String.format("ID : %03d\t書名 : %s\t作者 : %s\t出版社 : %s\t"+(getbookstatus()==true? "已出借\n" : "庫中"), getbookID(), getbookname(), getbookauthor(), getbookpublisher());
 	}
 }
