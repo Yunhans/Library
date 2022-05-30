@@ -82,18 +82,10 @@ public class Library {
             }
         }
         if(sameBooks == ""){
-            for(int i=0; i<library.size(); i++){
-                if(library.get(i)==null){
-                    library.set(i, new Book(bookname, bookauthor, bookpublisher,i));
-                    JOptionPane.showMessageDialog(null, "新增成功\n");
-                    break;
-                }else{
-                    library.add(library.size(), new Book(bookname, bookauthor, bookpublisher,library.size()));
-                    JOptionPane.showMessageDialog(null, "新增成功\n");
-                }
-            }
+            library.add(library.size(), new Book(bookname, bookauthor, bookpublisher,library.size()));
+            JOptionPane.showMessageDialog(null, "新增成功");
         }else{
-            JOptionPane.showMessageDialog(null, "此書已存在");
+            JOptionPane.showMessageDialog(null, sameBooks, "此書已存在", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
