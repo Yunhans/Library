@@ -5,7 +5,8 @@ public class Book {
 	private String publisher;
 	private boolean status = true;
 	private int id;
-	private String date;
+	private String date1; //借書日期
+	private String date2; //還書日期
 
 	public Book(String bookName, String author, String publisher, int id){
 		setBookname(bookName);
@@ -50,11 +51,18 @@ public class Book {
         return id;
     }
 
-	public void setdate(String date){
-        this.date = date;
+	public void setdate1(String date1){
+        this.date1 = date1;
     }
-	public String getdate(){
-        return date;
+	public String getdate1(){
+        return date1;
+    }
+
+	public void setdate2(String date2){
+        this.date2 = date2;
+    }
+	public String getdate2(){
+        return date2;
     }
 
 	public String toString(){

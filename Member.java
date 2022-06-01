@@ -4,8 +4,8 @@ public abstract class Member {
     private String account;
     private String password;
 
-    public ArrayList<Book> borrowed = new ArrayList<Book>(); //借閱書列
-	private String record="";
+    ArrayList<Book> borrowed = new ArrayList<Book>(); //­É¾\®Ñ¦C
+    private String record="";
 
     public Member(String name, String account, String password){
         setName(name);
@@ -49,6 +49,14 @@ public abstract class Member {
 
     public String getPassword(){
         return password;
+    }
+
+    public void setrecord(String record){
+        this.record = record;
+    }
+
+    public String getrecord(){
+        return record;
     }
 
     public abstract int borrowDay();

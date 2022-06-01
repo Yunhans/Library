@@ -48,7 +48,7 @@ public class User {
         String name = JOptionPane.showInputDialog("輸入姓名:");
         String account = JOptionPane.showInputDialog("註冊帳號:");
         String password = JOptionPane.showInputDialog("設定密碼:");
-        if(name == null  || account == null || password == null){
+        if(name == null || account == null || password == null){
             JOptionPane.showMessageDialog(null, "有資料為空", "註冊失敗", JOptionPane.ERROR_MESSAGE);
             welcome();
         }else{
@@ -179,56 +179,121 @@ public class User {
     }
 
     //借書
-    public static void borrowBook() {
-        String option[]={"繼續借書","回總畫面"};
+	public static void borrowBook() {
+
+		String option[]={"繼續借書","回總畫面"};
 		int decision = 0;
-        do{
-            String sameBooks = "";
-            String record="";
-            String bookname = JOptionPane.showInputDialog(null, "輸入書名", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
-            for(int i=0; i<library.size(); i++){
-                if(library.get(i) != null && bookname.equals(library.get(i).getBookname())){
-                    sameBooks += library.get(i);
-                }
-            }
-            if( bookname == null || sameBooks == ""){
-                JOptionPane.showMessageDialog(null, "查無此書", "查詢結果", JOptionPane.ERROR_MESSAGE);
-                decision = 1;
-            }else{
-                int i = Integer.parseInt(JOptionPane.showInputDialog(null, "搜尋結果如下:\n"+sameBooks+"\n輸入要借閱的書的ID:", "借閱書籍", JOptionPane.QUESTION_MESSAGE));
+
+		do{
+
+			String sameBooks = "";
+			String record="";
+			String bookname = JOptionPane.showInputDialog(null, "輸入書名", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
+
+			for(int i=0; i<library.size(); i++){
+
+				if(library.get(i) != null && bookname.equals(library.get(i).getBookname())){
+				sameBooks += library.get(i);
+				}
+
+			}
+
+			if( bookname == null || sameBooks == ""){
+				JOptionPane.showMessageDialog(null, "查無此書", "查詢結果", JOptionPane.ERROR_MESSAGE);
+				decision = 1;
+			}
+
+			else{
+				int i = Integer.parseInt(JOptionPane.showInputDialog(null, "搜尋結果如下:\n"+sameBooks+"\n輸入要借閱的書的ID:", "借閱書籍", JOptionPane.QUESTION_MESSAGE));
     
-                if(member().borrowed.size() == member().borrowLimit()){
-                    String show = String.format("你已借%d本書,不能再借了", member().borrowLimit());
-                    JOptionPane.showMessageDialog(null, show);
-                    decision = 1;
-                }else if(library.get(i).getStatus()==true){ //沒有被借走
-                    library.get(i).setStatus(false);
-                    member().borrowed.add(library.get(i)); //加到借閱書列中
-                    record += "ID: " + library.get(i).getID() + "書名 : " + library.get(i).getBookname() + " 作者 : " + library.get(i).getAuthor() + " 出版社 : " + library.get(i).getPublisher(); 
-                    //將此紀錄加入借閱紀錄中
-                    String date1 = JOptionPane.showInputDialog(null, "借閱日期?(請照yyyy-mm-dd格式輸入)");
-                    library.get(i).setdate(date1);
-                    record += "借閱日期 : " + date1 + "\n"; //登入借閱日期
-                    member().newRecord(record);
-                    String show = String.format("借書成功,借書期限:%s天", member().borrowDay());
-                    decision = JOptionPane.showOptionDialog(null, show,"訊息",1,1,null,option,option[0]);
-                }else{  //被借走了
-                    decision = JOptionPane.showOptionDialog(null, "書已被借走","訊息",1,1,null,option,option[0]);
-                }
-            }
+				if(member().borrowed.size() == member().borrowLimit()){
+					String show = String.format("你已借%d本書,不能再借了", member().borrowLimit());
+					JOptionPane.showMessageDialog(null, show);
+					decision = 1;
+				}
+				else if(library.get(i).getStatus()==true){ //沒有被借走
+					library.get(i).setStatus(false);
+					member().borrowed.add(library.get(i)); //加到借閱書列中
 
-        }while(decision == 0 && member().borrowed.size()<member().borrowLimit());
-        menu();
-    }
+					record += "ID: " + library.get(i).getID() + "書名 : " + library.get(i).getBookname() + " 作者 : " + library.get(i).getAuthor() + " 出版社 : " + library.get(i).getPublisher(); 
+					//將此紀錄加入借閱紀錄中
 
-    //還書
-    public static void returnBook() {
+					library.get(i).setdate1(JOptionPane.showInputDialog(null, "借閱日期?(請照yyyy-mm-dd格式輸入)"));
 
-    }
+					record += "借閱日期 : " + library.get(i).getdate1() + "\n"; //登入借閱日期
 
-    public static void history() {
-        
-    }
+					member().newRecord(record);
+
+					String show = String.format("%s借書成功,借書期限:%s天", record, member().borrowDay());
+
+					decision = JOptionPane.showOptionDialog(null, show,"訊息",1,1,null,option,option[0]);
+				}
+				else{  //被借走了
+					decision = JOptionPane.showOptionDialog(null, "書已被借走","訊息",1,1,null,option,option[0]);
+				}
+			}
+
+		}while(decision == 0 && member().borrowed.size()<member().borrowLimit());
+		menu();
+	}
+
+	//還書
+	public static void returnBook() {
+        int i = 0;
+		String record = "";
+		String [] text = new String[10];
+		//for(Book b : member().borrowed){
+			//for(int i=0;i< member().borrowed.size();i++){
+				//if(text[i]==null){
+					//text[i]= b.getBookname();
+					//break;
+				//}
+			//}
+		//}
+		for(i = 0 ; i< member().borrowed.size();i++){
+			if(text[i]==null){
+				text[i]= member().borrowed.get(i).getBookname();}
+        }
+        String [] options = new String [i];
+        for(int j = 0; j<options.length; j++){
+            options[j] = text[j];
+        }
+		int choice = JOptionPane.showOptionDialog(null,"選擇要還的書：","訊息",1,1,null,options,options[0]);
+
+
+		record += "ID: " + member().borrowed.get(choice).getID() + "書名 : " + member().borrowed.get(choice).getBookname() + " 作者 : " + member().borrowed.get(choice).getAuthor() + " 出版社 : " + member().borrowed.get(choice).getPublisher();
+
+		member().borrowed.get(choice).setdate2(JOptionPane.showInputDialog(null, "借閱日期?(請照yyyy-mm-dd格式輸入)"));
+
+		record += "還書日期 : " + member().borrowed.get(choice).getdate1(); 
+
+		long fee = 0;
+
+		LocalDate date1 = LocalDate.parse(member().borrowed.get(choice).getdate1());
+		LocalDate date2 = LocalDate.parse(member().borrowed.get(choice).getdate2());
+
+		long ok = ChronoUnit.DAYS.between(date1, date2);
+		fee = (ok-member().borrowDay())*10; //過期一天10塊錢
+		if(fee==0)
+		{
+			record +="\n";
+		}
+		else
+		{
+			record +="過期 : " + ok + "天 罰款 : " + fee + " 元\n";
+		}
+
+		member().newRecord(record);
+		member().borrowed.get(choice).setStatus(true);
+		member().borrowed.remove(choice);
+		JOptionPane.showMessageDialog(null,"還書成功"+ ((fee==0)?"":"過期 : " + ok + "天 罰款 : " + fee + " 元"));
+		menu();
+	}
+
+	public static void history() {
+		JOptionPane.showMessageDialog(null,member().getrecord());
+		menu();
+	}
 
     //查詢書籍
     public static String searchBook() {
