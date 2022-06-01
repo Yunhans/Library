@@ -242,19 +242,15 @@ public class User {
         int i = 0;
 		String record = "";
 		String [] text = new String[10];
-		//for(Book b : member().borrowed){
-			//for(int i=0;i< member().borrowed.size();i++){
-				//if(text[i]==null){
-					//text[i]= b.getBookname();
-					//break;
-				//}
-			//}
-		//}
 		for(i = 0 ; i< member().borrowed.size();i++){
 			if(text[i]==null){
 				text[i]= member().borrowed.get(i).getBookname();}
         }
         String [] options = new String [i];
+        if(text[0]==null){
+            JOptionPane.showMessageDialog(null, "你沒有正在借的書喔", "訊息", JOptionPane.ERROR_MESSAGE);
+            menu();
+        }
         for(int j = 0; j<options.length; j++){
             options[j] = text[j];
         }
@@ -263,9 +259,9 @@ public class User {
 
 		record += "ID: " + member().borrowed.get(choice).getID() + "書名 : " + member().borrowed.get(choice).getBookname() + " 作者 : " + member().borrowed.get(choice).getAuthor() + " 出版社 : " + member().borrowed.get(choice).getPublisher();
 
-		member().borrowed.get(choice).setdate2(JOptionPane.showInputDialog(null, "借閱日期?(請照yyyy-mm-dd格式輸入)"));
+		member().borrowed.get(choice).setdate2(JOptionPane.showInputDialog(null, "還書日期?(請照yyyy-mm-dd格式輸入)"));
 
-		record += "還書日期 : " + member().borrowed.get(choice).getdate1(); 
+		record += "還書日期 : " + member().borrowed.get(choice).getdate2(); 
 
 		long fee = 0;
 
@@ -273,7 +269,11 @@ public class User {
 		LocalDate date2 = LocalDate.parse(member().borrowed.get(choice).getdate2());
 
 		long ok = ChronoUnit.DAYS.between(date1, date2);
-		fee = (ok-member().borrowDay())*10; //過期一天10塊錢
+
+		if (ok>member().borrowDay()){
+			fee = (ok-member().borrowDay())*10; //過期一天10塊錢
+		}
+
 		if(fee==0)
 		{
 			record +="\n";
