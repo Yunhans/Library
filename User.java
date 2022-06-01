@@ -38,6 +38,8 @@ public class User {
             case 1:
                 register();
                 break;
+            default :
+                System.exit(0);
         }
     }
     
@@ -139,6 +141,7 @@ public class User {
         welcome();
     }
 
+    //提取使用者身份
     public static Member member(){
         switch(identity){
             case 0:
@@ -290,6 +293,7 @@ public class User {
 		menu();
 	}
 
+    //借書紀錄
 	public static void history() {
 		JOptionPane.showMessageDialog(null,member().getrecord());
 		menu();
@@ -398,6 +402,7 @@ public class User {
         
     }
 
+    //刪除書籍
     public static void deleteBook() {
         String sameBooks = "";
         String bookname = JOptionPane.showInputDialog(null, "輸入書名", "刪除書籍", JOptionPane.QUESTION_MESSAGE);
@@ -423,6 +428,7 @@ public class User {
         adminMenu();
     }
 
+    //修改書籍資訊
     public static void editBook() {
         String sameBooks = "";
         String bookname = JOptionPane.showInputDialog(null, "輸入書名", "修改書籍", JOptionPane.QUESTION_MESSAGE);
