@@ -1,14 +1,21 @@
-public class Staff extends Member {
+public class Staff extends Member{
 
     public Staff(String name, String account, String password){
         super(name, account, password);
     }
 
-    public void borrowBook(){
-
+    public int getIdentity(){
+        return 2;
     }
 
-    public void returnBook(){
-
+    @Override
+    public int borrowDay() {
+        return 14;
     }
+
+    @Override
+    public int borrowLimit() {
+        return 5;
+    }
+    
 }

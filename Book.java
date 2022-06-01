@@ -1,33 +1,64 @@
 public class Book {
-	private String bookname;
-	private String bookauthor;
-	private String bookpublisher;
-	private boolean bookstatus = true;
-	private int bookID;
 
-	public Book(String bookname, String bookauthor, String bookpublisher, int bookID){
-		setbookname(bookname);
-		setbookauthor(bookauthor);
-		setbookpublisher(bookpublisher);
-		setbookID(bookID);
+	private String bookName;
+	private String author;
+	private String publisher;
+	private boolean status = true;
+	private int id;
+	private String date;
+
+	public Book(String bookName, String author, String publisher, int id){
+		setBookname(bookName);
+		setAuthor(author);
+		setPublisher(publisher);
+		setID(id);
 	}
 
-	public void setbookname(String bookname){this.bookname = bookname;}
-	public String getbookname(){return bookname;}
+	public void setBookname(String bookname){
+        this.bookName = bookname;
+    }
+    
+	public String getBookname(){
+        return bookName;
+    }
 
-	public void setbookauthor(String bookauthor){this.bookauthor = bookauthor;}
-	public String getbookauthor(){return bookauthor;}
+	public void setAuthor(String bookauthor){
+        this.author = bookauthor;
+    }
+	public String getAuthor(){
+        return author;
+    }
 
-	public void setbookpublisher(String bookpublisher){this.bookpublisher = bookpublisher;}
-	public String getbookpublisher(){return bookpublisher;}
+	public void setPublisher(String publisher){
+        this.publisher = publisher;
+    }
+	public String getPublisher(){
+        return publisher;
+    }
 
-	public void setbookstatus(boolean bookstatus){this.bookstatus = bookstatus;}
-	public boolean getbookstatus(){return bookstatus;}
+	public void setStatus(boolean status){
+        this.status = status;
+    }
+	public boolean getStatus(){
+        return status;
+    }
 
-	public void setbookID(int bookID){this.bookID = bookID;}
-	public int getbookID(){return bookID;}
+	public void setID(int id){
+        this.id = id;
+    }
+	public int getID(){
+        return id;
+    }
+
+	public void setdate(String date){
+        this.date = date;
+    }
+	public String getdate(){
+        return date;
+    }
 
 	public String toString(){
-        return String.format("ID: %04d\t書名: %s\t作者: %s\t出版社: %s\t狀態: "+(getbookstatus()==true? "可借閱\n" : "已出借\n"), getbookID(), getbookname(), getbookauthor(), getbookpublisher());
+        return String.format("ID: %04d\t書名: %s\t作者: %s\t出版社: %s\t狀態: "+(getStatus()==true? "可借閱\n" : "已出借\n"), getID(), getBookname(), getAuthor(), getPublisher());
 	}
+    
 }

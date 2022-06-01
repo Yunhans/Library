@@ -1,7 +1,11 @@
+import java.util.ArrayList;
 public abstract class Member {
     private String name;
     private String account;
     private String password;
+
+    ArrayList<Book> borrowed = new ArrayList<Book>(); //借閱書列
+	private String record="";
 
     public Member(String name, String account, String password){
         setName(name);
@@ -9,12 +13,18 @@ public abstract class Member {
         setPassword(password);
     }
 
-    public void login(){
-        
+    public ArrayList<Book> getBorrowed(){
+        return borrowed;
     }
 
-    public void menu(){
-        
+    public abstract int getIdentity();
+
+    public String getRecord(){
+        return record;
+    }
+
+    public void newRecord(String record){
+        this.record += record;
     }
 
     public void setName(String name){
@@ -41,7 +51,7 @@ public abstract class Member {
         return password;
     }
 
-    public abstract void borrowBook();
-    public abstract void returnBook();
-    
+    public abstract int borrowDay();
+    public abstract int borrowLimit();
+        
 }
