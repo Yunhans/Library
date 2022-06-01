@@ -4,7 +4,7 @@ public abstract class Member {
     private String account;
     private String password;
 
-    ArrayList<Book> borrowed = new ArrayList<Book>(); //借閱書列
+    public ArrayList<Book> borrowed = new ArrayList<Book>(); //借閱書列
 	private String record="";
 
     public Member(String name, String account, String password){
