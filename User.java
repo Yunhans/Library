@@ -64,6 +64,9 @@ public class User {
                 staff.add(new Staff(name, account, password));
                 identity = option;
                 break;
+            default :
+                welcome();
+                break;
         }
         menu();
     }
@@ -111,9 +114,6 @@ public class User {
                     identity = 3;
                 }
                 break;
-            default:
-                welcome();
-                break;
         }
 
         if(exist==true){
@@ -127,11 +127,25 @@ public class User {
             }
             if(identity == -1){
                 JOptionPane.showMessageDialog(null, "密碼錯誤", "登入失敗", JOptionPane.ERROR_MESSAGE);
-                welcome();
             }
         }else{
             JOptionPane.showMessageDialog(null, "此帳號不存在", "登入失敗", JOptionPane.ERROR_MESSAGE);
-            welcome();
+        }
+        welcome();
+    }
+
+    public static Member member(){
+        switch(identity){
+            case 0:
+                return student.get(id);
+            case 1:
+                return teacher.get(id);
+            case 2:
+                return staff.get(id);
+            case 3:
+                return admin;
+            default:
+                return null;
         }
     }
 
@@ -241,21 +255,6 @@ public class User {
 		JOptionPane.showMessageDialog(null,"還書成功"+ ((fee==0)?"":"過期 : " + ok + "天 罰款 : " + fee + " 元"));
 		menu();
         */
-    }
-
-    public static Member member(){
-        switch(identity){
-            case 0:
-                return student.get(id);
-            case 1:
-                return teacher.get(id);
-            case 2:
-                return staff.get(id);
-            case 3:
-                return admin;
-            default:
-                return null;
-        }
     }
 
     public static void history() {
