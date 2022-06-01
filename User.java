@@ -48,25 +48,30 @@ public class User {
         String name = JOptionPane.showInputDialog("輸入姓名:");
         String account = JOptionPane.showInputDialog("註冊帳號:");
         String password = JOptionPane.showInputDialog("設定密碼:");
-        switch(option){
-            case 0:
-                id = student.size();
-                student.add(new Student(name, account, password));
-                identity = option;
-                break;
-            case 1:
-                id = teacher.size();
-                teacher.add(new Teacher(name, account, password));
-                identity = option;
-                break;
-            case 2:
-                id = staff.size();
-                staff.add(new Staff(name, account, password));
-                identity = option;
-                break;
-            default :
-                welcome();
-                break;
+        if(name == null  || account == null || password == null){
+            JOptionPane.showMessageDialog(null, "有資料為空", "註冊失敗", JOptionPane.ERROR_MESSAGE);
+            welcome();
+        }else{
+            switch(option){
+                case 0:
+                    id = student.size();
+                    student.add(new Student(name, account, password));
+                    identity = option;
+                    break;
+                case 1:
+                    id = teacher.size();
+                    teacher.add(new Teacher(name, account, password));
+                    identity = option;
+                    break;
+                case 2:
+                    id = staff.size();
+                    staff.add(new Staff(name, account, password));
+                    identity = option;
+                    break;
+                default :
+                    welcome();
+                    break;
+            }
         }
         menu();
     }
@@ -218,43 +223,7 @@ public class User {
 
     //還書
     public static void returnBook() {
-        /*String [] text = new String[10];
-        String record = "";
-		for(Book b : borrowed){
-			for(int i=0;i<borrowed.size();i++){
-				if(text[i]==null){
-					text[i]=b.getbookname();
-					break;
-				}
-			}
-		}
-		int choice = JOptionPane.showOptionDialog(null,"選擇要還的書：","訊息",1,1,null,text,text[0]);
 
-
-		record += "ID: " + borrowed[choice].getbookID() + "書名 : " + borrowed[choice].getbookname() + " 作者 : " + borrowed[choice].getbookauthor() + " 出版社 : " + borrowed[choice].getbookpublisher();
-
-		String date2 = JOptionPane.showInputDialog(null, "借閱日期?(請照yyyy-mm-dd格式輸入)");
-		for(Book c : borrowed){c.setdate("");}
-
-		record += "還書日期 : " + date1; 
-
-		int fee = 0;
-		long ok = ChronoUnit.DAYS.between(date1, date2);
-		fee = (ok-14)*10; //過期一天10塊錢
-		if(fee==0)
-		{
-			record +="\n";
-		}
-		else
-		{
-			record +="過期 : " + ok + "天 罰款 : " + fee + " 元\n";
-		}
-
-		borrowed.remove(choice);
-		L.library.setbookstatus(true);
-		JOptionPane.showMessageDialog(null,"還書成功"+ ((fee==0)?"":"過期 : " + ok + "天 罰款 : " + fee + " 元"));
-		menu();
-        */
     }
 
     public static void history() {
