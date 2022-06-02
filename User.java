@@ -190,12 +190,12 @@ public class User {
 
     //借書
 	public static void borrowBook() {
-
 		String option[]={"繼續借書","回總畫面"};
-		int decision = 0;
-
+        int decision = 0;
+        
 		do{
-
+            LocalDate d = LocalDate.now();
+            String date =  String.format("%d-%02d-%02d", d.getYear(), d.getMonthValue(), d.getDayOfMonth());
 			String sameBooks = "";
 			String record="";
 			String bookname = JOptionPane.showInputDialog(null, "輸入書名", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
@@ -228,7 +228,7 @@ public class User {
 					record += "ID: " + library.get(i).getID() + "書名 : " + library.get(i).getBookname() + " 作者 : " + library.get(i).getAuthor() + " 出版社 : " + library.get(i).getPublisher(); 
 					//將此紀錄加入借閱紀錄中
 
-					library.get(i).setdate1(JOptionPane.showInputDialog(null, "借閱日期?(請照yyyy-mm-dd格式輸入)"));
+					library.get(i).setdate1(JOptionPane.showInputDialog(null, "借閱日期?\n(請照yyyy-mm-dd格式輸入)", date));
 
 					record += "借閱日期 : " + library.get(i).getdate1() + "\n"; //登入借閱日期
 
@@ -252,6 +252,8 @@ public class User {
         int i = 0;
 		String record = "";
 		String [] text = new String[10];
+        LocalDate d = LocalDate.now();
+        String date =  String.format("%d-%02d-%02d", d.getYear(), d.getMonthValue(), d.getDayOfMonth());
 		for(i = 0 ; i< member().borrowed.size();i++){
 			if(text[i]==null){
 				text[i]= member().borrowed.get(i).getBookname();}
@@ -269,7 +271,7 @@ public class User {
 
 		record += "ID: " + member().borrowed.get(choice).getID() + "書名 : " + member().borrowed.get(choice).getBookname() + " 作者 : " + member().borrowed.get(choice).getAuthor() + " 出版社 : " + member().borrowed.get(choice).getPublisher();
 
-		member().borrowed.get(choice).setdate2(JOptionPane.showInputDialog(null, "還書日期?(請照yyyy-mm-dd格式輸入)"));
+		member().borrowed.get(choice).setdate2(JOptionPane.showInputDialog(null, "還書日期?\n(請照yyyy-mm-dd格式輸入)", date));
 
 		record += "還書日期 : " + member().borrowed.get(choice).getdate2(); 
 
@@ -387,7 +389,7 @@ public class User {
     //管理員總介面
     public static void adminMenu() {
         String [] options = {"新增書籍", "修改書籍資訊", "刪除書籍", "查詢書籍", "顯示所有書籍", "離開"};
-        int option = JOptionPane.showOptionDialog(null, "選擇功能", "管理員", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        int option = JOptionPane.showOptionDialog(null, "選擇功能", "書籍管理系統", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
         switch(option){
             case 0:
