@@ -4,9 +4,9 @@ public abstract class Member {
     private String account;
     private String password;
 
-    ArrayList<Book> borrowed = new ArrayList<Book>(); //­借的書
-    ArrayList<Book> history = new ArrayList<Book>();
-    private String record="";
+    ArrayList<Book> borrowed = new ArrayList<Book>(); //­正在借的書
+    ArrayList<Book> history = new ArrayList<Book>(); //已經還的書（用來擴充新功能 例如: 最常借的書or最喜歡的作者etc.）
+    private String record=""; //已經還的書
 
     public Member(String name, String account, String password){
         setName(name);
