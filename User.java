@@ -194,8 +194,7 @@ public class User {
         int decision = 0;
         
 		do{
-            LocalDate d = LocalDate.now();
-            String date =  String.format("%d-%02d-%02d", d.getYear(), d.getMonthValue(), d.getDayOfMonth());
+            String date =  String.format("%d-%02d-%02d", LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
 			String sameBooks = "";
 			String record="";
 			String bookname = JOptionPane.showInputDialog(null, "輸入書名", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
@@ -252,8 +251,7 @@ public class User {
         int i = 0;
 		String record = "";
 		String [] text = new String[10];
-        LocalDate d = LocalDate.now();
-        String date =  String.format("%d-%02d-%02d", d.getYear(), d.getMonthValue(), d.getDayOfMonth());
+        String date =  String.format("%d-%02d-%02d", LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
 		for(i = 0 ; i< member().borrowed.size();i++){
 			if(text[i]==null){
 				text[i]= member().borrowed.get(i).getBookname();}
