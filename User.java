@@ -295,7 +295,11 @@ public class User {
 
     //借書紀錄
 	public static void history() {
-		JOptionPane.showMessageDialog(null,member().getrecord());
+        if(member().getrecord()!=""){
+            JOptionPane.showMessageDialog(null,member().getrecord());
+        }else{
+            JOptionPane.showMessageDialog(null, "無借閱紀錄", "訊息", JOptionPane.ERROR_MESSAGE);
+        }
 		menu();
 	}
 
