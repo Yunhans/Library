@@ -4,7 +4,8 @@ public abstract class Member {
     private String account;
     private String password;
 
-    ArrayList<Book> borrowed = new ArrayList<Book>(); //­É¾\®Ñ¦C
+    ArrayList<Book> borrowed = new ArrayList<Book>(); //­借的書
+    ArrayList<Book> history = new ArrayList<Book>();
     private String record="";
 
     public Member(String name, String account, String password){
@@ -15,6 +16,10 @@ public abstract class Member {
 
     public ArrayList<Book> getBorrowed(){
         return borrowed;
+    }
+
+    public ArrayList<Book> getHistory(){
+        return history;
     }
 
     public abstract int getIdentity();
