@@ -199,6 +199,10 @@ public class User {
 			String record="";
 			String bookname = JOptionPane.showInputDialog(null, "輸入書名", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
 
+            if(bookname==null){
+                break;
+            }
+            
 			for(int i=0; i<library.size(); i++){
 
 				if(library.get(i) != null && bookname.equals(library.get(i).getBookname())){
@@ -207,12 +211,10 @@ public class User {
 
 			}
 
-			if( bookname == null || sameBooks == ""){
+            if( sameBooks == ""){
 				JOptionPane.showMessageDialog(null, "查無此書", "查詢結果", JOptionPane.ERROR_MESSAGE);
 				decision = 1;
-			}
-
-			else{
+			}else{
 				int i = Integer.parseInt(JOptionPane.showInputDialog(null, "搜尋結果如下:\n"+sameBooks+"\n輸入要借閱的書的ID:", "借閱書籍", JOptionPane.QUESTION_MESSAGE));
     
 				if(member().borrowed.size() == member().borrowLimit()){
