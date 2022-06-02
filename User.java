@@ -83,9 +83,10 @@ public class User {
         boolean exist = false;
         String options [] = {"學生", "老師", "職員", "管理員"};
         int option = JOptionPane.showOptionDialog(null, "選擇身份", "登入", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-        String account = JOptionPane.showInputDialog("帳號:");
+        String account;
         switch(option){
             case 0:
+                account = JOptionPane.showInputDialog("帳號:");
                 for(int i=0; i<student.size(); i++){
                     if(student.get(i).getAccount().equals(account)){
                         exist = true;
@@ -96,6 +97,7 @@ public class User {
                 }
                 break;
             case 1:
+                account = JOptionPane.showInputDialog("帳號:");
                 for(int i=0; i<teacher.size(); i++){
                     if(teacher.get(i).getAccount().equals(account)){
                         exist = true;
@@ -106,6 +108,7 @@ public class User {
                 }
                 break;
             case 2:
+                account = JOptionPane.showInputDialog("帳號:");
                 for(int i=0; i<staff.size(); i++){
                     if(staff.get(i).getAccount().equals(account)){
                         exist = true;
@@ -116,10 +119,14 @@ public class User {
                 }
                 break;
             case 3:
+                account = JOptionPane.showInputDialog("帳號:");
                 if(admin.getAccount().equals(account)){
                     exist = true;
                     identity = 3;
                 }
+                break;
+            default:
+                welcome();
                 break;
         }
 
