@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.event.*;
 
 import java.util.ArrayList;
-import java.time.LocalDate; //計算時間差距的
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate; 
+import java.time.temporal.ChronoUnit; //計算時間差距的
 
 public class User {
 
@@ -87,6 +87,7 @@ public class User {
 		JComboBox<String> combobox_identity = new JComboBox<>(identityarray); //選擇身分
 		
 		JButton button_register; //註冊按鈕
+		JButton button_back; //返回按鈕
 		
 		frame_userinfo.setVisible(true);
 		
@@ -137,17 +138,36 @@ public class User {
 		panel_userinfo.add(combobox_identity);
 		
 		// button_login setup
-		button_register = new JButton("登入");
+		button_register = new JButton("註冊");
 		button_register.setBounds(10, 140, 80, 25);
 		panel_userinfo.add(button_register);
 		button_register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				String option_input = combobox_identity.getItemAt(combobox_identity.getSelectedIndex());
-				String account_input = text_account.getText();
-				String password_input = text_password.getText();
-				String name_input = text_name.getText();
+				String account_input;
+				String password_input;
+				String name_input;
+				if(text_account.getText().length()<1 || text_password.getText().length()<1 || text_name.getText().length()<1 ){
+					account_input = null;
+					password_input = null;
+					name_input = null;
+				}else{
+					account_input = text_account.getText();
+					password_input = text_password.getText();
+					name_input = text_name.getText();
+				}
 				frame_userinfo.dispose();
 				register(option_input, account_input, password_input, name_input);
+			}});
+
+		// button_back setup
+		button_back = new JButton("返回");
+		button_back.setBounds(110, 140, 80, 25);
+		panel_userinfo.add(button_back);
+		button_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				frame_userinfo.dispose();
+				welcome_gui();
 			}});
 	}
     
@@ -160,7 +180,7 @@ public class User {
         String password = password_input;
         if(name == null || account == null || password == null){
             JOptionPane.showMessageDialog(null, "有資料為空", "註冊失敗", JOptionPane.ERROR_MESSAGE);
-            welcome_gui();
+            register_gui();
         }else{
             switch(options){
                 case "學生":
@@ -182,8 +202,8 @@ public class User {
                     welcome_gui();
                     break;
             }
+			menu_gui();
         }
-        menu_gui();
     }
     
     //登入
@@ -202,6 +222,7 @@ public class User {
 		JComboBox<String> combobox_identity = new JComboBox<>(identityarray); //選擇身分
 	
 		JButton button_login; //登入按鈕
+		JButton button_back; //返回按鈕
 	
 		JLabel option_text;//讀入身分
 		JLabel account_text;//讀入帳號
@@ -260,12 +281,28 @@ public class User {
 		button_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				String option = combobox_identity.getItemAt(combobox_identity.getSelectedIndex());;
-				String account = text_id.getText();
-				String password = text_password.getText();
+				String account;
+				String password;
+				if( text_id.getText().length()<1 || text_password.getText().length()<1){
+					account = null;
+					password = null;
+				}else{
+					account = text_id.getText();
+					password = text_password.getText();
+				}
 				login(option, account, password);
 				frame_userinfo.dispose();
-			}
-		});
+			}});
+
+		// button_back setup
+		button_back = new JButton("返回");
+		button_back.setBounds(110, 110, 80, 25);
+		panel_userinfo.add(button_back);
+		button_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				frame_userinfo.dispose();
+				welcome_gui();
+			}});
 	}
     
     //登入GUI
@@ -276,73 +313,73 @@ public class User {
         String option = option_input;// = JOptionPane.showOptionDialog(null, "選擇身份", "登入", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         String account= account_input;
         String password = password_input;
-		
-        switch(option){
-            case "學生":
-                //account = JOptionPane.showInputDialog("帳號:");
-                for(int i=0; i<student.size(); i++){
-                    if(student.get(i).getAccount().equals(account)){
-                        exist = true;
-                        id = i;
-                        identity = 0;
-                        break;
-                    }
-                }
-                break;
-            case "老師":
-                //account = JOptionPane.showInputDialog("帳號:");
-                for(int i=0; i<teacher.size(); i++){
-                    if(teacher.get(i).getAccount().equals(account)){
-                        exist = true;
-                        id = i;
-                        identity = 1;
-                        break;
-                    }
-                }
-                break;
-            case "職員":
-                //account = JOptionPane.showInputDialog("帳號:");
-                for(int i=0; i<staff.size(); i++){
-                    if(staff.get(i).getAccount().equals(account)){
-                        exist = true;
-                        id = i;
-                        identity = 2;
-                        break;
-                    }
-                }
-                break;
-            case "管理員":
-                //account = JOptionPane.showInputDialog("帳號:");
-                if(admin.getAccount().equals(account)){
-                    exist = true;
-                    identity = 3;
-                }
-                break;
-            default:
-                welcome_gui();
-                break;
-        }
-        if(account==null){
+		if( account == null || password == null){
+            JOptionPane.showMessageDialog(null, "有資料為空", "登入失敗", JOptionPane.ERROR_MESSAGE);
             login_gui();
-        }else if(exist==true){
-            
-            if(password==null){
-                welcome_gui();
-            }else if(password.equals(member().getPassword())){
-                if(member()==admin){
-                    adminMenu_gui();
-                }else{
-                    menu_gui();
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "密碼錯誤", "登入失敗", JOptionPane.ERROR_MESSAGE);
-                welcome_gui();
-            }
         }else{
-            JOptionPane.showMessageDialog(null, "此帳號不存在", "登入失敗", JOptionPane.ERROR_MESSAGE);
-            welcome_gui();
-        }
-        //welcome_gui();
+			switch(option){
+				case "學生":
+					//account = JOptionPane.showInputDialog("帳號:");
+					for(int i=0; i<student.size(); i++){
+						if(student.get(i).getAccount().equals(account)){
+							exist = true;
+							id = i;
+							identity = 0;
+							break;
+						}
+					}
+					break;
+				case "老師":
+					//account = JOptionPane.showInputDialog("帳號:");
+					for(int i=0; i<teacher.size(); i++){
+						if(teacher.get(i).getAccount().equals(account)){
+							exist = true;
+							id = i;
+							identity = 1;
+							break;
+						}
+					}
+					break;
+				case "職員":
+					//account = JOptionPane.showInputDialog("帳號:");
+					for(int i=0; i<staff.size(); i++){
+						if(staff.get(i).getAccount().equals(account)){
+							exist = true;
+							id = i;
+							identity = 2;
+							break;
+						}
+					}
+					break;
+				case "管理員":
+					//account = JOptionPane.showInputDialog("帳號:");
+					if(admin.getAccount().equals(account)){
+						exist = true;
+						identity = 3;
+					}
+					break;
+				default:
+					welcome_gui();
+					break;
+			}
+			if(exist==true){
+				  if(password.equals(member().getPassword())){
+					if(member()==admin){
+						adminMenu_gui();
+					}else{
+						menu_gui();
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "密碼錯誤", "登入失敗", JOptionPane.ERROR_MESSAGE);
+					welcome_gui();
+				}
+			}else{
+				JOptionPane.showMessageDialog(null, "此帳號不存在", "登入失敗", JOptionPane.ERROR_MESSAGE);
+				welcome_gui();
+			}
+
+		}
+        
     }
 
     //提取使用者身份
@@ -806,7 +843,7 @@ public class User {
         String bookname = JOptionPane.showInputDialog(null, "輸入書名");
         String author = JOptionPane.showInputDialog(null, "輸入作者");
         String publisher = JOptionPane.showInputDialog(null, "輸入出版社");
-        if(bookname == null || author == null || publisher == null){
+        if( bookname.length()<1 || author.length()<1 || publisher.length()<1 ){
             JOptionPane.showMessageDialog(null, "有資料為空", "新增書籍失敗", JOptionPane.ERROR_MESSAGE);
         }else{
             for( int i=0; i<library.size(); i++){
