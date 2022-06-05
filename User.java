@@ -369,13 +369,10 @@ public class User {
 					}else{
 						menu_gui();
 					}
-				}else{
-					JOptionPane.showMessageDialog(null, "密碼錯誤", "登入失敗", JOptionPane.ERROR_MESSAGE);
-					login_gui();
 				}
 			}else{
-				JOptionPane.showMessageDialog(null, "此帳號不存在,前往註冊畫面", "登入失敗", JOptionPane.ERROR_MESSAGE);
-				register_gui();
+				JOptionPane.showMessageDialog(null, "帳號或密碼錯誤", "登入失敗", JOptionPane.ERROR_MESSAGE);
+				login_gui();
 			}
 
 		}
