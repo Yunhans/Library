@@ -29,6 +29,8 @@ public class User {
     
     //歡迎畫面
 	public static void welcome_gui() {
+		id = -1;
+		identity = -1;
 		JFrame frame_welcome = new JFrame("央央圖書館"); //登入註冊的frame
 		JPanel panel_welcome = new JPanel(); //登入註冊的panel
 		JButton button_login = new JButton("登入"); // 登入的按鈕
@@ -186,17 +188,17 @@ public class User {
                 case "學生":
                     id = student.size();
                     student.add(new Student(name, account, password));
-                    identity = 0;
+                    identity = student.get(id).getIdentity();
                     break;
                 case "老師":
                     id = teacher.size();
                     teacher.add(new Teacher(name, account, password));
-                    identity = 1;
+                    identity = teacher.get(id).getIdentity();
                     break;
                 case "職員":
                     id = staff.size();
                     staff.add(new Staff(name, account, password));
-                    identity = 2;
+                    identity = staff.get(id).getIdentity();
                     break;
                 default :
                     welcome_gui();
@@ -324,7 +326,7 @@ public class User {
 						if(student.get(i).getAccount().equals(account)){
 							exist = true;
 							id = i;
-							identity = 0;
+							identity = student.get(id).getIdentity();
 							break;
 						}
 					}
@@ -335,7 +337,7 @@ public class User {
 						if(teacher.get(i).getAccount().equals(account)){
 							exist = true;
 							id = i;
-							identity = 1;
+							identity = teacher.get(id).getIdentity();
 							break;
 						}
 					}
@@ -346,7 +348,7 @@ public class User {
 						if(staff.get(i).getAccount().equals(account)){
 							exist = true;
 							id = i;
-							identity = 2;
+							identity = staff.get(id).getIdentity();
 							break;
 						}
 					}
@@ -355,7 +357,7 @@ public class User {
 					//account = JOptionPane.showInputDialog("帳號:");
 					if(admin.getAccount().equals(account)){
 						exist = true;
-						identity = 3;
+						identity = admin.getIdentity();
 					}
 					break;
 				default:
