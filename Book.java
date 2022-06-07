@@ -3,22 +3,23 @@ public class Book {
 	private String bookName;
 	private String author;
 	private String publisher;
+    private String style;
 	private boolean status = true;
 	private int id;
 	private String date1; //借書日期
 	private String date2; //還書日期
 
-	public Book(String bookName, String author, String publisher, int id){
+	public Book(String bookName, String author, String publisher, String style, int id){
 		setBookname(bookName);
 		setAuthor(author);
 		setPublisher(publisher);
+        setStyle(style);
 		setID(id);
 	}
 
 	public void setBookname(String bookname){
         this.bookName = bookname;
     }
-    
 	public String getBookname(){
         return bookName;
     }
@@ -35,6 +36,13 @@ public class Book {
     }
 	public String getPublisher(){
         return publisher;
+    }
+
+    public void setStyle(String style){
+        this.style = style;
+    }
+    public String getStyle(){
+        return style;
     }
 
 	public void setStatus(boolean status){
@@ -66,7 +74,7 @@ public class Book {
     }
 
 	public String toString(){
-        return String.format("ID: %04d\t書名: %s\t作者: %s\t出版社: %s\t狀態: "+(getStatus()==true? "可借閱\n" : "已出借\n"), getID(), getBookname(), getAuthor(), getPublisher());
+        return String.format("ID: %04d\t書名: %s\t作者: %s\t出版社: %s\t分類: %s\t狀態: "+(getStatus()==true? "可借閱\n" : "已出借\n"), getID(), getBookname(), getAuthor(), getPublisher(), getStyle());
 	}
     
 }

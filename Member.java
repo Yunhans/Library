@@ -28,6 +28,31 @@ public abstract class Member {
         return record;
     }
 
+    public String favoriteStyle(){
+        if(getRecord().equals("")){
+            return "";
+        }else{
+            int [] style = {0,0,0,0,0};
+            String [] stylename = {"科幻", "懸疑", "文學", "商業", "電腦"};
+            for(Book book : history){
+                for(int i=0; i<5; i++){
+                    if(book.getStyle().equals(stylename[i])){
+                        style[i]+=1;
+                    }
+                }
+            }
+            int max = 0;
+            int maxindex = 0;
+            for(int i = 0; i<style.length; i++){
+                if(style[i]>max){
+                    max = style[i];
+                    maxindex = i;
+                }
+            }
+            return stylename[maxindex];
+        }
+    }
+
     public void newRecord(String record){
         this.record += record;
     }

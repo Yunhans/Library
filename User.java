@@ -1,23 +1,34 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
+import java.awt.*;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.time.LocalDate; 
 import java.time.temporal.ChronoUnit; //計算時間差距的
 
 public class User {
 
     static ArrayList<Student> student = new ArrayList<>(){{
-        add(0, new Student("test", "test", "123"));
+        add(0, new Student("testname", "test", "123"));
     }};
     static ArrayList<Teacher> teacher = new ArrayList<>();
     static ArrayList<Staff> staff = new ArrayList<>();
-    static Admin admin = new Admin("admin","admin","admin");
+    static Admin admin = new Admin("管理員","admin","admin");
 
     static ArrayList<Book> library = new ArrayList<Book>(){{
-        add(0, new Book("Harry Potter", "J.K.Rowling", "Bloomsbury", 0));
-        add(1, new Book("Percy Jackson", "Rick Riordan", "Disney", 1));
-        add(2, new Book("123", "123", "123",2));
+        add(0, new Book("Harry Potter", "J.K.Rowling", "Bloomsbury", "科幻", 0));
+        add(1, new Book("Percy Jackson", "Rick Riordan", "Disney", "科幻",1));
+		add(2, new Book("名偵探柯南", "青山剛昌", "小學館","懸疑",2));
+        add(3, new Book("C++", "c++", "c++","電腦",3));
+		add(4, new Book("Java", "java", "java","電腦",4));
+		add(5, new Book("C", "c", "c","電腦",5));
+		add(6, new Book("沙丘", "Franklin Herbert", "大家出版","科幻",6));
+        add(7, new Book("哈利波特", "J.K.Rowling", "皇冠文化", "科幻", 7));
+		add(8, new Book("金田一少年之事件簿", "金成陽三郎", "東立出版社","懸疑",8));
+		add(9, new Book("Java How to program", "Paul DEITEL", "Pearson","電腦",9));
+
+
     }};
 
     static int id=-1;
@@ -29,40 +40,51 @@ public class User {
     
     //歡迎畫面
 	public static void welcome_gui() {
-		id = -1;
-		identity = -1;
 		JFrame frame_welcome = new JFrame("央央圖書館"); //登入註冊的frame
 		JPanel panel_welcome = new JPanel(); //登入註冊的panel
-		JButton button_login = new JButton("登入"); // 登入的按鈕
-		JButton button_register = new JButton("註冊"); // 註冊的按鈕
+	    JFrame.setDefaultLookAndFeelDecorated(true);
+	    JDialog.setDefaultLookAndFeelDecorated(true);
+		
+
+	    ImageIcon icon=new ImageIcon("frame_welcome_icon.png");
+	    ImageIcon button_login_icon=new ImageIcon("button_login.png");
+	    ImageIcon button_register_icon=new ImageIcon("button_register.png");
+	    
+		JButton button_login = new JButton(button_login_icon); // 登入的按鈕
+		JButton button_register = new JButton(button_register_icon); // 註冊的按鈕
 
 
 		//frame panel setup
-		frame_welcome.setSize(230, 160);
+		frame_welcome.setSize(600, 440);
 		frame_welcome.setLocationRelativeTo(null);
 		frame_welcome.setResizable(false);
 		frame_welcome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame_welcome.add(panel_welcome);
 		
 		panel_welcome.setLayout(null);
+		panel_welcome.setOpaque(false);
+		//button_login setup
+		panel_welcome.add(button_login);
+		button_login.setBounds(396,103,154,88);
+
+		//button_register setup
+		panel_welcome.add(button_register);
+		button_register.setBounds(396,209,154,88);
+
+		//background setup
+		JLabel background = new JLabel(icon);
+		panel_welcome.add(background, new Integer(Integer.MIN_VALUE));
+		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 		
 		frame_welcome.setVisible(true);
-		
-		//Container cp=frame_welcome.getContentPane();
-	    //cp.setLayout(new GridLayout(2,0));
-		
-		//button_login setup
-		button_login.setBounds(30,30,60,40);
-		panel_welcome.add(button_login);
+
 		button_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				frame_welcome.dispose();
 				login_gui();}
 			});
 		
-		//button_register setup
-		button_register.setBounds(120,30,60,40);
-		panel_welcome.add(button_register);
+
 		button_register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				frame_welcome.dispose();
@@ -71,16 +93,12 @@ public class User {
 	}
 
     //註冊GUI
-    public static void register_gui() {
-		
+	public static void register_gui() {
+			
 		String[] identityarray = {"學生", "老師", "職員"};
 		
 		JFrame frame_userinfo = new JFrame(); // 註冊的frame
 		JPanel panel_userinfo = new JPanel(); // 註冊的panel
-		
-		JLabel label_account; //"user"的文字標示
-		JLabel label_password; //"password"的文字標示
-		JLabel label_name; //"name"的文字標示
 		
 		JTextField text_account; // 輸入用戶帳號
 		JPasswordField text_password; // 輸入用戶密碼
@@ -91,58 +109,61 @@ public class User {
 		JButton button_register; //註冊按鈕
 		JButton button_back; //返回按鈕
 		
-		frame_userinfo.setVisible(true);
+		ImageIcon button_confirm_icon=new ImageIcon("button_confirm.png");
+		ImageIcon button_back_icon=new ImageIcon("button_back.png");
+			
 		
 		//frame panel setup
-		frame_userinfo.setSize(320,225);
+		frame_userinfo.setSize(600,440);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		JDialog.setDefaultLookAndFeelDecorated(true);	
+		ImageIcon icon=new ImageIcon("frame_register_icon.png");
+
+
 		frame_userinfo.setResizable(false);
 		frame_userinfo.setLocationRelativeTo(null);
-		frame_userinfo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame_userinfo.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame_userinfo.add(panel_userinfo);
 		
 		panel_userinfo.setLayout(null);
 		
-		//name part
-		//label_name setup
-		label_name = new JLabel("輸入姓名");
-		label_name.setBounds(10,20,80,25);
-		panel_userinfo.add(label_name);
-		
 		//text_name setup
 		text_name = new JTextField(20); //20是長度限制
-		text_name.setBounds(100, 20, 165, 25);
+		text_name.setBounds(228, 150, 191, 25);
 		panel_userinfo.add(text_name);
-		
-		//account part
-		//label_acount setup
-		label_account = new JLabel("註冊帳號");
-		label_account.setBounds(10, 50, 80, 25);
-		panel_userinfo.add(label_account);
 		
 		//text_account setup
 		text_account = new JTextField(20);
-		text_account.setBounds(100, 50, 165, 25);
+		text_account.setBounds(228, 191, 191, 25);
 		panel_userinfo.add(text_account);
-		
-		//password part
-		//label_password setup
-		label_password = new JLabel("設定密碼");
-		label_password.setBounds(10, 80, 80, 25);
-		panel_userinfo.add(label_password);
 		
 		//text_password setup
 		text_password = new JPasswordField(20);
-		text_password.setBounds(100, 80, 165, 25);
+		text_password.setBounds(228, 232, 191, 25);
 		panel_userinfo.add(text_password);
 		
 		//combobox_identity setup
-		combobox_identity.setBounds(10, 110, 80, 25);
+		combobox_identity.setBounds(228, 274, 80, 25);
 		panel_userinfo.add(combobox_identity);
 		
 		// button_login setup
-		button_register = new JButton("註冊");
-		button_register.setBounds(10, 140, 80, 25);
+		button_register = new JButton(button_confirm_icon);
+		button_register.setBounds(264, 328, 70, 27);
 		panel_userinfo.add(button_register);
+		
+		// button_back setup
+		button_back = new JButton(button_back_icon);
+		button_back.setBounds(17, 13, 84, 34);
+		panel_userinfo.add(button_back);
+
+		//background setup
+		JLabel background = new JLabel(icon);
+		panel_userinfo.add(background, new Integer(Integer.MIN_VALUE));
+		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+
+		frame_userinfo.setVisible(true);
+
+
 		button_register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				String option_input = combobox_identity.getItemAt(combobox_identity.getSelectedIndex());
@@ -158,14 +179,10 @@ public class User {
 					password_input = text_password.getText();
 					name_input = text_name.getText();
 				}
-				frame_userinfo.dispose();
 				register(option_input, account_input, password_input, name_input);
+				frame_userinfo.dispose();
 			}});
 
-		// button_back setup
-		button_back = new JButton("返回");
-		button_back.setBounds(110, 140, 80, 25);
-		panel_userinfo.add(button_back);
 		button_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				frame_userinfo.dispose();
@@ -215,9 +232,6 @@ public class User {
 		JFrame frame_userinfo = new JFrame(); // 登入的frame
 		JPanel panel_userinfo = new JPanel(); // 登入的panel
 	
-		JLabel label_id; //"user"的文字標示
-		JLabel label_password; //"password"的文字標示
-	
 		JTextField text_id; // 輸入用戶帳號
 		JPasswordField text_password; // 輸入用戶密碼
 	
@@ -225,61 +239,54 @@ public class User {
 	
 		JButton button_login; //登入按鈕
 		JButton button_back; //返回按鈕
-	
-		JLabel option_text;//讀入身分
-		JLabel account_text;//讀入帳號
-	
-		frame_userinfo.setVisible(true);
-	
-		//option_text text
-		option_text = new JLabel("");
-		option_text.setBounds(30, 110, 300, 25);
-		panel_userinfo.add(option_text);
-	
-		//account_text text
-		account_text = new JLabel("");
-		account_text.setBounds(30, 110, 300, 25);
-		panel_userinfo.add(account_text);
+		
+		ImageIcon button_confirm_icon=new ImageIcon("button_confirm.png");
+		ImageIcon button_back_icon=new ImageIcon("button_back.png");
 	
 		//frame panel setup
-		frame_userinfo.setSize(320,200);
+		frame_userinfo.setSize(600,440);
+	    JFrame.setDefaultLookAndFeelDecorated(true);
+	    JDialog.setDefaultLookAndFeelDecorated(true);	
+	    ImageIcon icon=new ImageIcon("frame_login_icon.png");
+
 		frame_userinfo.setLocationRelativeTo(null);
 		frame_userinfo.setResizable(false);
-		frame_userinfo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame_userinfo.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame_userinfo.add(panel_userinfo);
 	
 		panel_userinfo.setLayout(null);
-	
-		//id part
-		//label_id setup
-		label_id = new JLabel("帳號");
-		label_id.setBounds(10,20,80,25);
-		panel_userinfo.add(label_id);
 		
 		//text_id setup
 		text_id = new JTextField(20); //20是長度限制
-		text_id.setBounds(100, 20, 165, 25);
+		text_id.setBounds(242,156, 191, 25);
 		panel_userinfo.add(text_id);
-	
-		//password part
-		//label_password setup
-		label_password = new JLabel("密碼");
-		label_password.setBounds(10, 50, 80, 25);
-		panel_userinfo.add(label_password);
 	
 		//text_password setup
 		text_password = new JPasswordField(20);
-		text_password.setBounds(100, 50, 165, 25);
+		text_password.setBounds(242, 197, 191, 25);
 		panel_userinfo.add(text_password);
 	
 		//combobox_identity setup
-		combobox_identity.setBounds(10, 80, 80, 25);
+		combobox_identity.setBounds(242, 239, 100, 25);
 		panel_userinfo.add(combobox_identity);
 	
 		// button_login setup
-		button_login = new JButton("log in");
-		button_login.setBounds(10, 110, 80, 25);
+		button_login = new JButton(button_confirm_icon);
+		button_login.setBounds(262, 304, 77, 35);
 		panel_userinfo.add(button_login);
+
+		//button_back setup
+		button_back = new JButton(button_back_icon);
+		button_back.setBounds(17, 13, 84, 34);
+		panel_userinfo.add(button_back);
+
+		//background setup
+		JLabel background = new JLabel(icon);
+		panel_userinfo.add(background, new Integer(Integer.MIN_VALUE));
+		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+
+		frame_userinfo.setVisible(true);
+
 		button_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				String option = combobox_identity.getItemAt(combobox_identity.getSelectedIndex());;
@@ -294,17 +301,15 @@ public class User {
 				}
 				login(option, account, password);
 				frame_userinfo.dispose();
-			}});
+			}
+		});
 
-		// button_back setup
-		button_back = new JButton("返回");
-		button_back.setBounds(110, 110, 80, 25);
-		panel_userinfo.add(button_back);
 		button_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				frame_userinfo.dispose();
 				welcome_gui();
-			}});
+			}
+		});
 	}
     
     //登入
@@ -399,88 +404,123 @@ public class User {
     
     //主畫面
   	public static void menu_gui() {
-  		JFrame frame_menu = new JFrame(); // 主畫面的frame
-  		JPanel panel_menu = new JPanel(); // 主畫面的panel
+		JFrame frame_menu = new JFrame(); // 主畫面的frame
+		JPanel panel_menu = new JPanel(); // 主畫面的panel
+		
+		JButton button_borrow;
+		JButton button_return;
+		JButton button_searchbook;
+		JButton button_history;
+		JButton button_exit;
+		
+		JLabel label_username;
+		label_username = new JLabel();// label_username.setText(String); 更改顯示
+		if(member().getRecord()==""){
+			label_username.setBounds(104,103,190,25);
+			label_username.setText("Hi~ "+member().getName());
+			panel_menu.add(label_username);
+		}else{
+			label_username.setBounds(96, 52, 120, 25); //顯示用戶名(借過書位置)
+			label_username.setText("Hi~ "+member().getName());
+			panel_menu.add(label_username);
+			
+			JLabel label_favtype;
+			label_favtype = new JLabel();
+			label_favtype.setText("你最常借的類別: "+member().favoriteStyle());
+			label_favtype.setBounds(34, 86, 300, 25); 
+			panel_menu.add(label_favtype);
+			
+			JLabel label_recommend;
+			label_recommend = new JLabel("你可能會喜歡: "+ recommend(member().favoriteStyle()));
+
+			label_recommend.setBounds(34, 119, 300, 25); 
+			panel_menu.add(label_recommend);
+		}
+
+
+		ImageIcon button_exit_icon=new ImageIcon("button_exit.png");
+		ImageIcon button_borrow_icon=new ImageIcon("button_borrow.png");
+		ImageIcon button_return_icon=new ImageIcon("button_return.png");
+		ImageIcon button_searchbook_icon=new ImageIcon("button_searchbook.png");
+		ImageIcon button_history_icon=new ImageIcon("button_history.png");
   		
-  		JButton button_borrow;
-  		JButton button_return;
-  		JButton button_searchbook;
-  		JButton button_history;
-  		JButton button_exit;
-  		
-  		JLabel test;//測試
-  		
-  		frame_menu.setVisible(true);
-  		
-  		//test text
-  		test = new JLabel("");
-  		test.setBounds(30, 200, 300, 25);
-  		panel_menu.add(test);
-  		
-  		//frame panel setup
-  		frame_menu.setSize(420, 350);
-  		frame_menu.setLocationRelativeTo(null);
-  		frame_menu.setResizable(false);
-  		frame_menu.setDefaultCloseOperation(JFrame. DO_NOTHING_ON_CLOSE);
-  		frame_menu.add(panel_menu);
-  		
-  		panel_menu.setLayout(null);
-  		
-  		// 借書button_borrow setup
-  		button_borrow = new JButton("借書");
-  		button_borrow.setBounds(30, 30, 150, 60);
-  		panel_menu.add(button_borrow);
-  		button_borrow.addActionListener(new ActionListener() {
-  			public void actionPerformed(ActionEvent actionEvent) {
-  				//message(1,"borrow()"+identityword);
-  				frame_menu.dispose();
-  				borrowBook();
-  			}});
-  		
-  		// 還書button_return setup
-  		button_return = new JButton("還書");
-  		button_return.setBounds(210, 30, 150, 60);
-  		panel_menu.add(button_return);
-  		button_return.addActionListener(new ActionListener() {
-  			public void actionPerformed(ActionEvent actionEvent) {
-  				//message(1,"return()"+identityword);
-  				frame_menu.dispose();
-  				returnBook();
-  			}});
-  		
-  		// 查詢書籍button_searchbook setup
-  		button_searchbook = new JButton("查詢書籍");
-  		button_searchbook.setBounds(30, 120, 150, 60);
-  		panel_menu.add(button_searchbook);
-  		button_searchbook.addActionListener(new ActionListener() {
-  			public void actionPerformed(ActionEvent actionEvent) {
-  				//message(1,"searchbook()"+identityword);
-  				frame_menu.dispose();
-  				searchBook();
-  				menu_gui();
-  			}});
-  		
-  		// 查詢借閱紀錄button_history setup
-  		button_history = new JButton("查詢借閱紀錄");
-  		button_history.setBounds(210, 120, 150, 60);
-  		panel_menu.add(button_history);
-  		button_history.addActionListener(new ActionListener() {
-  			public void actionPerformed(ActionEvent actionEvent) {
-  				//message(1,"history()"+identityword);
-  				frame_menu.dispose();
-  				history();
-  			}});
-  		
-  		// 離開button_exit setup
-  		button_exit = new JButton("離開");
-  		button_exit.setBounds(120, 210, 150, 60);
-  		panel_menu.add(button_exit);
-  		button_exit.addActionListener(new ActionListener() {
-  			public void actionPerformed(ActionEvent actionEvent) {
-  				frame_menu.dispose();
-  				welcome_gui();
-  			}});
-  	}
+		//frame panel setup
+		frame_menu.setSize(600, 440);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		JDialog.setDefaultLookAndFeelDecorated(true);	
+		ImageIcon icon=new ImageIcon("frame_menu_icon.png");
+
+		frame_menu.setLocationRelativeTo(null);
+		frame_menu.setResizable(false);
+		frame_menu.setDefaultCloseOperation(JFrame. DO_NOTHING_ON_CLOSE);
+		frame_menu.add(panel_menu);
+		panel_menu.setLayout(null);
+		
+		// 借書button_borrow setup
+		button_borrow = new JButton(button_borrow_icon);
+		button_borrow.setBounds(360, 30, 214, 79);
+		panel_menu.add(button_borrow);
+
+		// 還書button_return setup
+		button_return = new JButton(button_return_icon);
+		button_return.setBounds(360, 120, 214, 79);
+		panel_menu.add(button_return);
+
+		// 查詢書籍button_searchbook setup
+		button_searchbook = new JButton(button_searchbook_icon);
+		button_searchbook.setBounds(360, 210, 214, 79);
+		panel_menu.add(button_searchbook);
+
+		// 查詢借閱紀錄button_history setup
+		button_history = new JButton(button_history_icon);
+		button_history.setBounds(360, 300, 214, 79);
+		panel_menu.add(button_history);
+		
+		// 離開button_exit setup
+		button_exit = new JButton(button_exit_icon);
+		button_exit.setBounds(17, 12, 84, 34);
+		panel_menu.add(button_exit);
+
+		//background setup
+		JLabel background = new JLabel(icon);
+		panel_menu.add(background, new Integer(Integer.MIN_VALUE));
+		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+
+		frame_menu.setVisible(true);
+
+
+		button_borrow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				borrowBook();
+				frame_menu.dispose();
+			}});
+
+		button_return.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				returnBook();
+				frame_menu.dispose();
+			}});
+
+		button_searchbook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				searchBook();
+				menu_gui();
+				frame_menu.dispose();
+			}});
+
+		button_history.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				history();
+				frame_menu.dispose();
+
+			}});
+
+		button_exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				welcome_gui();
+				frame_menu.dispose();
+			}});
+	}
 
     //借書
 	public static void borrowBook() {
@@ -517,6 +557,9 @@ public class User {
 				}else if(borrowID.length()<1){
 					JOptionPane.showMessageDialog(null, "有資料為空", "借書失敗", JOptionPane.ERROR_MESSAGE);
 					break;
+				}else if(!borrowID.chars().allMatch( Character::isDigit)){
+					JOptionPane.showMessageDialog(null, "請輸入數字", "借書失敗", JOptionPane.ERROR_MESSAGE);
+					break;
 				}else{
 					int i = Integer.parseInt(borrowID);
 					if(member().borrowed.size() == member().borrowLimit()){
@@ -530,7 +573,7 @@ public class User {
 	
 						library.get(i).setdate1(JOptionPane.showInputDialog(null, "借閱日期?\n(請照yyyy-mm-dd格式輸入)", date));
 	
-						String show = String.format("書名: %s借書成功,借書期限:%s天", library.get(i).getBookname(), member().borrowDay());
+						String show = String.format("書名: %s\n借書成功,借書期限:%s天", library.get(i).getBookname(), member().borrowDay());
 	
 						decision = JOptionPane.showOptionDialog(null, show,"訊息",1,1,null,option,option[0]);
 					}
@@ -567,7 +610,7 @@ public class User {
 
 		member().borrowed.get(choice).setdate2(JOptionPane.showInputDialog(null, "還書日期?\n(請照yyyy-mm-dd格式輸入)", date));
 
-        record += String.format("書名: %s\t作者: %s\t出版社: %s\t借閱日期: %s\t還書日期: %s\t", member().borrowed.get(choice).getBookname(), member().borrowed.get(choice).getAuthor(), member().borrowed.get(choice).getPublisher(), member().borrowed.get(choice).getdate1(), member().borrowed.get(choice).getdate2());
+        record += String.format("書名: %s\t作者: %s\t出版社: %s\t分類: %s\t借閱日期: %s\t還書日期: %s\t", member().borrowed.get(choice).getBookname(), member().borrowed.get(choice).getAuthor(), member().borrowed.get(choice).getPublisher(), member().borrowed.get(choice).getStyle(),member().borrowed.get(choice).getdate1(), member().borrowed.get(choice).getdate2());
 		long fee = 0;
 
 		LocalDate date1 = LocalDate.parse(member().borrowed.get(choice).getdate1());
@@ -577,6 +620,7 @@ public class User {
 
 		if (ok>member().borrowDay()){
 			fee = (ok-member().borrowDay())*10; //過期一天10塊錢
+			ok = ok-member().borrowDay();
 		}
 
 		if(fee==0){
@@ -599,7 +643,7 @@ public class User {
         String borrowing="";
 
         for(Book borrow : member().borrowed){
-            String show = String.format("書名: %s\t作者: %s\t出版社: %s\t借閱日期: %s\n", borrow.getBookname(), borrow.getAuthor(), borrow.getPublisher(), borrow.getdate1());
+            String show = String.format("書名: %s\t作者: %s\t出版社: %s\t分類: %s\t借閱日期: %s\n", borrow.getBookname(), borrow.getAuthor(), borrow.getPublisher(), borrow.getStyle(), borrow.getdate1());
             borrowing += show;
         }
         if(member().getRecord()==""&&borrowing==""){
@@ -613,9 +657,22 @@ public class User {
 		menu_gui();
 	}
 
+	//個人化推薦
+	public static String recommend(String favoriteStyle){
+		Random r = new Random();
+		ArrayList<Book> style = new ArrayList<>();
+		for(int i=0; i<library.size(); i++){
+			if(library.get(i)!=null && library.get(i).getStyle().equals(favoriteStyle)){
+				style.add(library.get(i));
+			}
+		}
+		int index = r.nextInt(style.size());
+		return style.get(index).getBookname();
+	}
+
     //查詢書籍
-    public static String searchBook() {
-        String sameBooks = "";
+    public static void searchBook() {
+        //String sameBooks = "";
         String [] searchOptions = {"書名", "作者", "出版商"};
         int searchOption = JOptionPane.showOptionDialog(null, "選擇查詢", "查詢書籍", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, searchOptions, searchOptions[0]);
 
@@ -630,85 +687,133 @@ public class User {
                 searchbyPublisher();
                 break;
         }
-        return sameBooks;
+        //return sameBooks;
        
     }
 
     //搜尋出版社
-    public static String searchbyPublisher() {
-        String sameBooks = "";
+    public static void searchbyPublisher() {
+        //String sameBooks = "";
+		Object[] title={"書名","作者","出版社","類別","狀態"};
+		Object[][] str = new Object[library.size()][5];
+		int j = 0;
         String publisher = JOptionPane.showInputDialog(null, "輸入出版社關鍵字", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         if(publisher == null){
             searchBook();
-            return "";
+            //return "";
         }else if(publisher.length()<1){
 			JOptionPane.showMessageDialog(null, "輸入關鍵字為空", "查詢失敗", JOptionPane.ERROR_MESSAGE);
-			return "";
+			//return "";
 		}else{
             for(Book book : library){
                 if(book != null){
 					String find = book.getPublisher();
 					if(find.contains(publisher)){
-						sameBooks += book;
+						str[j][0]=book.getBookname();
+						str[j][1]=book.getAuthor();
+						str[j][2]=book.getPublisher();
+						str[j][3]=book.getStyle();
+						str[j][4]=book.getStatus()? "庫中" : "已出借";
+						j++;
 					}
                 }
             }
-            JOptionPane.showMessageDialog(null, sameBooks==""? "查無此出版社" : sameBooks, "查詢結果", JOptionPane.INFORMATION_MESSAGE);
-            return sameBooks;
+			DefaultTableModel model = new DefaultTableModel(str, title);
+			JTable table = new JTable(model);
+			JScrollPane scrollPane = new JScrollPane(table);
+			if(str[0][0]==null){
+				JOptionPane.showMessageDialog(null, "查無此出版社", "搜尋結果", JOptionPane.ERROR_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(null, scrollPane, "搜尋結果", -1);
+			}
+            //JOptionPane.showMessageDialog(null, sameBooks==""? "查無此出版社" : sameBooks, "查詢結果", JOptionPane.INFORMATION_MESSAGE);
+            //return sameBooks;
         } 
     }
 
     //搜尋作者
-    public static String searchbyAuthor() {
-        String sameBooks = "";
+    public static void searchbyAuthor() {
+        //String sameBooks = "";
+		Object[] title={"書名","作者","出版社","類別","狀態"};
+		Object[][] str = new Object[library.size()][5];
+		int j = 0;
         String author = JOptionPane.showInputDialog(null, "輸入作者關鍵字", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         if(author == null){
             searchBook();
-            return "";
+            //return "";
         }else if(author.length()<1){
 			JOptionPane.showMessageDialog(null, "輸入關鍵字為空", "查詢失敗", JOptionPane.ERROR_MESSAGE);
-			return "";
+			//return "";
 		}else{
             for(Book book : library){
                 if(book != null){
 					String find = book.getAuthor();
 					if(find.contains(author)){
-						sameBooks += book;
+						str[j][0]=book.getBookname();
+						str[j][1]=book.getAuthor();
+						str[j][2]=book.getPublisher();
+						str[j][3]=book.getStyle();
+						str[j][4]=book.getStatus()? "庫中" : "已出借";
+						j++;
 					}
                 }
             }
-            JOptionPane.showMessageDialog(null, sameBooks==""? "查無此作者" : sameBooks, "查詢結果", JOptionPane.INFORMATION_MESSAGE);
-            return sameBooks;
+			DefaultTableModel model = new DefaultTableModel(str, title);
+			JTable table = new JTable(model);
+			JScrollPane scrollPane = new JScrollPane(table);
+			if(str[0][0]==null){
+				JOptionPane.showMessageDialog(null, "查無此作者", "搜尋結果", JOptionPane.ERROR_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(null, scrollPane, "搜尋結果", -1);
+			}
+            //JOptionPane.showMessageDialog(null, sameBooks==""? "查無此作者" : sameBooks, "查詢結果", JOptionPane.INFORMATION_MESSAGE);
+            //return sameBooks;
         }
     }
 
     //搜尋書名
-    public static String searchbyName() {
-        String sameBooks = "";
+    public static void searchbyName() {
+		Object[] title={"書名","作者","出版社","類別","狀態"};
+		Object[][] str = new Object[library.size()][5];
+		int j = 0;
+        //String sameBooks = "";
         String bookname = JOptionPane.showInputDialog(null, "輸入書名關鍵字", "查詢書籍", JOptionPane.QUESTION_MESSAGE);
         if(bookname == null){
             searchBook();
-            return "";
+            //return "";
         }else if(bookname.length()<1){
 			JOptionPane.showMessageDialog(null, "輸入關鍵字為空", "查詢失敗", JOptionPane.ERROR_MESSAGE);
-			return "";
+			//return "";
 		}
 		else{
             for(Book book : library){
                 if(book != null){
 					String find = book.getBookname();
 					if(find.contains(bookname)){
-						sameBooks += book;
+						str[j][0]=book.getBookname();
+						str[j][1]=book.getAuthor();
+						str[j][2]=book.getPublisher();
+						str[j][3]=book.getStyle();
+						str[j][4]=book.getStatus()? "庫中" : "已出借";
+						j++;
 					}
                 }
             }
-            JOptionPane.showMessageDialog(null, sameBooks==""? "查無此書" : sameBooks, "查詢結果", JOptionPane.INFORMATION_MESSAGE);
-            return sameBooks;
+			DefaultTableModel model = new DefaultTableModel(str, title);
+			JTable table = new JTable(model);
+			JScrollPane scrollPane = new JScrollPane(table);
+			if(str[0][0]==null){
+				JOptionPane.showMessageDialog(null, "查無此書名", "搜尋結果", JOptionPane.ERROR_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(null, scrollPane, "搜尋結果", -1);
+			}
+            //JOptionPane.showMessageDialog(null, sameBooks==""? "查無此書" : sameBooks, "查詢結果", JOptionPane.INFORMATION_MESSAGE);
+            //return sameBooks;
         }
     }
     
     //管理員主畫面
-    public static void adminMenu_gui() {
+	public static void adminMenu_gui() {
 		JFrame frame_adminmenu = new JFrame(); 
 		JPanel panel_adminmenu = new JPanel();
 		
@@ -718,9 +823,25 @@ public class User {
 		JButton button_searchbook;
 		JButton button_getLibrary;
 		JButton button_exit;
+		
+		ImageIcon button_exit_icon=new ImageIcon("button_exit.png");
+		ImageIcon button_addBook_icon=new ImageIcon("button_addBook.png");
+		ImageIcon button_deletebook_icon=new ImageIcon("button_deletebook.png");
+		ImageIcon button_editBook_icon=new ImageIcon("button_editBook.png");
+		ImageIcon button_getLibrary_icon=new ImageIcon("button_getLibrary.png");
+		ImageIcon button_searchbook_admin_icon=new ImageIcon("button_searchbook_admin.png");
+		   
+	  	JLabel label_adminname;
+	  	label_adminname = new JLabel(" ");// label_username.setText(String); 更改顯示
+	  	label_adminname.setBounds(96, 52, 120, 25); //顯示用戶名
+	  	panel_adminmenu.add(label_adminname);
 
 		//frame panel setup
-		frame_adminmenu.setSize(420, 350);
+		frame_adminmenu.setSize(600, 440);
+	    JFrame.setDefaultLookAndFeelDecorated(true);
+	    JDialog.setDefaultLookAndFeelDecorated(true);	
+	    ImageIcon icon=new ImageIcon("frame_admin_menu_icon.png");
+
 		frame_adminmenu.setLocationRelativeTo(null);
 		frame_adminmenu.setResizable(false);
 		frame_adminmenu.setDefaultCloseOperation(JFrame. DO_NOTHING_ON_CLOSE);
@@ -728,68 +849,81 @@ public class User {
 		
 		panel_adminmenu.setLayout(null);
 		
-		frame_adminmenu.setVisible(true);
 		
 		// 新增書籍button_addbook setup
-		button_addbook = new JButton("新增書籍");
-		button_addbook.setBounds(30, 30, 150, 60);
+		button_addbook = new JButton(button_addBook_icon);
+		button_addbook.setBounds(231, 68, 143, 116);
 		panel_adminmenu.add(button_addbook);
-		button_addbook.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				frame_adminmenu.dispose();
-				addBook_gui();
-			}});
-		
+
 		// 刪除書籍button_deletbook setup
-		button_deletbook = new JButton("刪除書籍");
-		button_deletbook.setBounds(210, 30, 150, 60);
+		button_deletbook = new JButton(button_deletebook_icon);
+		button_deletbook.setBounds(408, 68, 143, 116);
 		panel_adminmenu.add(button_deletbook);
-		button_deletbook.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				frame_adminmenu.dispose();
-				deleteBook();
-			}});
 
 		// 修改書籍資料button_editbook setup
-		button_editbook = new JButton("修改書籍資料");
-		button_editbook.setBounds(30, 120, 150, 60);
+		button_editbook = new JButton(button_editBook_icon);
+		button_editbook.setBounds(47, 215, 143, 116);
 		panel_adminmenu.add(button_editbook);
-		button_editbook.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				frame_adminmenu.dispose();
-				editBook();
-			}});
 		
 		// 查詢書籍button_searchbook setup
-		button_searchbook = new JButton("查詢書籍");
-		button_searchbook.setBounds(210, 120, 150, 60);
+		button_searchbook = new JButton(button_searchbook_admin_icon);
+		button_searchbook.setBounds(228, 214, 143, 116);
 		panel_adminmenu.add(button_searchbook);
-		button_searchbook.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				frame_adminmenu.dispose();
-				searchBook();
-  				adminMenu_gui();
-			}});
 		
 		// 顯示所有書籍button_getLibrary setup
-		button_getLibrary = new JButton("顯示所有書籍");
-		button_getLibrary.setBounds(30, 210, 150, 60);
+		button_getLibrary = new JButton(button_getLibrary_icon);
+		button_getLibrary.setBounds(408, 215, 143, 116);
 		panel_adminmenu.add(button_getLibrary);
-		button_getLibrary.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				frame_adminmenu.dispose();
-				getLibrary();
-			}});
 		
 		// 離開button_exit setup
-		button_exit = new JButton("離開主選單");
-		button_exit.setBounds(210, 210, 150, 60);
+		button_exit = new JButton(button_exit_icon);
+		button_exit.setBounds(17, 13, 84, 34);
 		panel_adminmenu.add(button_exit);
+
+		//background setup
+		JLabel background = new JLabel(icon);
+		panel_adminmenu.add(background, new Integer(Integer.MIN_VALUE));
+		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+
+		frame_adminmenu.setVisible(true);
+
+
+		button_addbook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				addBook_gui();
+				frame_adminmenu.dispose();
+			}});
+
+		button_deletbook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				deleteBook();
+				frame_adminmenu.dispose();
+			}});
+
+		button_editbook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				editBook();
+				frame_adminmenu.dispose();
+			}});
+
+		button_searchbook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				searchBook();
+  				adminMenu_gui();
+				frame_adminmenu.dispose();
+
+			}});
+
+		button_getLibrary.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				getLibrary();
+				frame_adminmenu.dispose();
+			}});
+
 		button_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				frame_adminmenu.dispose();
-				frame_adminmenu.dispose();
 				welcome_gui();
+				frame_adminmenu.dispose();
 			}});
 	}
 
@@ -818,6 +952,8 @@ public class User {
 
 				}else if(deleteID.length()<1){
 					JOptionPane.showMessageDialog(null, "輸入ID為空", "刪除失敗", JOptionPane.ERROR_MESSAGE);
+				}else if(!deleteID.chars().allMatch( Character::isDigit)){
+					JOptionPane.showMessageDialog(null, "請輸入數字", "刪除失敗", JOptionPane.ERROR_MESSAGE);
 				}else{
 					int index = Integer.parseInt(deleteID);
 					int option = JOptionPane.showConfirmDialog(null, "確定要刪除以下書籍嗎?\n"+library.get(index));
@@ -856,11 +992,14 @@ public class User {
 
 				}else if(editID.length()<1){
 					JOptionPane.showMessageDialog(null, "輸入ID為空", "修改失敗", JOptionPane.ERROR_MESSAGE);
+				}else if(!editID.chars().allMatch( Character::isDigit)){
+					JOptionPane.showMessageDialog(null, "請輸入數字", "修改失敗", JOptionPane.ERROR_MESSAGE);
 				}else{
 					int index = Integer.parseInt(editID);
 					bookname = library.get(index).getBookname();
 					String author = library.get(index).getAuthor();
 					String publisher = library.get(index).getPublisher();
+					String style = library.get(index).getStyle();
 					int option = JOptionPane.showConfirmDialog( null, "確定要修改以下書籍嗎?\n"+library.get(index), "修改書籍", JOptionPane.YES_NO_OPTION);
 					if(option == 0){
 						String [] searchOptions = {"書名", "作者", "出版商"};
@@ -901,7 +1040,7 @@ public class User {
 								}
 								break;
 						}
-						library.set(index, new Book(bookname, author, publisher, index));
+						library.set(index, new Book(bookname, author, publisher, style, index));
 					}
 				}
 
@@ -911,7 +1050,7 @@ public class User {
     }
 
     //新增書籍
-    public static void addBook(String bookname, String author, String publisher) {
+    public static void addBook(String bookname, String author, String publisher, String style) {
         String sameBooks = "";
         int index = 0;
 		if(bookname == null || author == null || publisher == null){
@@ -924,7 +1063,7 @@ public class User {
             }
             if(sameBooks == ""){
                 index = library.size();
-                library.add(new Book(bookname, author, publisher, index));
+                library.add(new Book(bookname, author, publisher, style, index));
                 JOptionPane.showMessageDialog(null, "新增成功\n"+library.get(index), "新增書籍", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null, "此書已存在"+sameBooks, "新增書籍失敗", JOptionPane.ERROR_MESSAGE);
@@ -935,17 +1074,23 @@ public class User {
 
 	//新增書籍GUI
 	public static void addBook_gui(){
-	
+
+		String[] stylearray = {"科幻", "懸疑", "文學", "商業", "電腦"};
+
 		JFrame frame_bookinfo = new JFrame(); // 註冊的frame
 		JPanel panel_bookinfo = new JPanel(); // 註冊的panel
 		
 		JLabel label_bookname; //"書名"的文字標示
 		JLabel label_author; //"作者"的文字標示
 		JLabel label_publisher; //"出版社"的文字標示
+		JLabel label_style;
 		
 		JTextField text_bookname; // 輸入用戶帳號
 		JTextField text_author; // 輸入用戶密碼
 		JTextField text_publisher; // 輸入用戶名字
+
+		JComboBox<String> combobox_style = new JComboBox<>(stylearray); //選擇類型
+
 				
 		JButton button_addBook; //註冊按鈕
 		JButton button_back; //返回按鈕
@@ -979,7 +1124,7 @@ public class User {
 		panel_bookinfo.add(label_author);
 		
 		//text_author setup
-		text_author = new JPasswordField(20);
+		text_author = new JTextField(20);
 		text_author.setBounds(100, 50, 165, 25);
 		panel_bookinfo.add(text_author);
 
@@ -993,6 +1138,14 @@ public class User {
 		text_publisher = new JTextField(20); //20是長度限制
 		text_publisher.setBounds(100, 80, 165, 25);
 		panel_bookinfo.add(text_publisher);
+
+		label_style = new JLabel("類別");
+		label_style.setBounds(10, 110, 80, 25);
+		panel_bookinfo.add(label_style);
+
+		//combobox_identity setup
+		combobox_style.setBounds(110, 110, 80, 25);
+		panel_bookinfo.add(combobox_style);
 		
 		// button_login setup
 		button_addBook = new JButton("新增書籍");
@@ -1000,6 +1153,7 @@ public class User {
 		panel_bookinfo.add(button_addBook);
 		button_addBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
+				String style_input = combobox_style.getItemAt(combobox_style.getSelectedIndex());
 				String bookname_input;
 				String author_input;
 				String publisher_input;
@@ -1012,8 +1166,8 @@ public class User {
 					author_input = text_author.getText();
 					publisher_input = text_publisher.getText();
 				}
+				addBook(bookname_input, author_input, publisher_input, style_input);
 				frame_bookinfo.dispose();
-				addBook(bookname_input, author_input, publisher_input);
 			}});
 
 		// button_back setup
@@ -1028,15 +1182,27 @@ public class User {
 	}
 
     //取得所有庫存書籍
-    public static String getLibrary() {
-        String allBooks = "";
-        for(Book book : library){
-            if(book!=null){
-                allBooks += book.toString();
-            }
-        }
-        JOptionPane.showMessageDialog(null, allBooks, "所有館藏", JOptionPane.INFORMATION_MESSAGE);
-        adminMenu_gui();
-        return allBooks;
+    public static void getLibrary() {	
+		Object[] title={"ID","書名","作者","出版社","類別","狀態"};
+		Object[][] str = new Object[library.size()][6];
+		int j = 0;
+
+		for(int i=0; i<library.size();i++){
+			if(library.get(i)!=null){
+				str[j][0]=library.get(i).getID();
+				str[j][1]=library.get(i).getBookname();
+				str[j][2]=library.get(i).getAuthor();
+				str[j][3]=library.get(i).getPublisher();
+				str[j][4]=library.get(i).getStyle();
+				str[j][5]=library.get(i).getStatus()? "庫中" : "已出借";
+				j++;
+			}
+		}
+
+		DefaultTableModel model = new DefaultTableModel(str, title);
+      	JTable table = new JTable(model);
+      	JScrollPane scrollPane = new JScrollPane(table);
+      	JOptionPane.showMessageDialog(null, scrollPane, "所有館藏", -1);
+		adminMenu_gui();
     }
 }
