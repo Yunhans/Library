@@ -45,14 +45,14 @@ public class User {
 	    JFrame.setDefaultLookAndFeelDecorated(true);
 	    JDialog.setDefaultLookAndFeelDecorated(true);
 		
-
-	    ImageIcon icon=new ImageIcon("frame_welcome_icon.png");
-	    ImageIcon button_login_icon=new ImageIcon("button_login.png");
-	    ImageIcon button_register_icon=new ImageIcon("button_register.png");
 	    
-		JButton button_login = new JButton(button_login_icon); // 登入的按鈕
-		JButton button_register = new JButton(button_register_icon); // 註冊的按鈕
+		JButton button_login = new JButton("登入"); // 登入的按鈕
+		JButton button_register = new JButton("註冊"); // 註冊的按鈕
 
+		JLabel label_welcome;
+		label_welcome = new JLabel("<html><body>歡迎光臨 央央圖書館<br><br>Where dreams come true</body></html>");
+		label_welcome.setBounds(55,160,280,61);
+		panel_welcome.add(label_welcome);
 
 		//frame panel setup
 		frame_welcome.setSize(600, 440);
@@ -71,10 +71,6 @@ public class User {
 		panel_welcome.add(button_register);
 		button_register.setBounds(396,209,154,88);
 
-		//background setup
-		JLabel background = new JLabel(icon);
-		panel_welcome.add(background, new Integer(Integer.MIN_VALUE));
-		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 		
 		frame_welcome.setVisible(true);
 
@@ -97,7 +93,7 @@ public class User {
 			
 		String[] identityarray = {"學生", "老師", "職員"};
 		
-		JFrame frame_userinfo = new JFrame(); // 註冊的frame
+		JFrame frame_userinfo = new JFrame("註冊"); // 註冊的frame
 		JPanel panel_userinfo = new JPanel(); // 註冊的panel
 		
 		JTextField text_account; // 輸入用戶帳號
@@ -108,16 +104,31 @@ public class User {
 		
 		JButton button_register; //註冊按鈕
 		JButton button_back; //返回按鈕
+
+		JLabel label_name;
+		label_name = new JLabel("名字");
+		label_name.setBounds(153,149,61,30);
+		panel_userinfo.add(label_name);
+		JLabel label_user;
+		label_user = new JLabel("帳號");
+		label_user.setBounds(153,189,61,30);
+		panel_userinfo.add(label_user);
+
+		JLabel label_password;
+		label_password = new JLabel("密碼");
+		label_password.setBounds(153,230,61,30);
+		panel_userinfo.add(label_password);
+
+		JLabel label_identity;
+		label_identity = new JLabel("身分");
+		label_identity.setBounds(153,271,61,30);
+		panel_userinfo.add(label_identity);
 		
-		ImageIcon button_confirm_icon=new ImageIcon("button_confirm.png");
-		ImageIcon button_back_icon=new ImageIcon("button_back.png");
-			
 		
 		//frame panel setup
 		frame_userinfo.setSize(600,440);
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		JDialog.setDefaultLookAndFeelDecorated(true);	
-		ImageIcon icon=new ImageIcon("frame_register_icon.png");
 
 
 		frame_userinfo.setResizable(false);
@@ -147,19 +158,14 @@ public class User {
 		panel_userinfo.add(combobox_identity);
 		
 		// button_login setup
-		button_register = new JButton(button_confirm_icon);
+		button_register = new JButton("登入");
 		button_register.setBounds(264, 328, 70, 27);
 		panel_userinfo.add(button_register);
 		
 		// button_back setup
-		button_back = new JButton(button_back_icon);
+		button_back = new JButton("返回");
 		button_back.setBounds(17, 13, 84, 34);
 		panel_userinfo.add(button_back);
-
-		//background setup
-		JLabel background = new JLabel(icon);
-		panel_userinfo.add(background, new Integer(Integer.MIN_VALUE));
-		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 
 		frame_userinfo.setVisible(true);
 
@@ -229,7 +235,7 @@ public class User {
 	public static void login_gui() {
 		String[] identityarray = {"學生", "老師", "職員", "管理員"};
 	
-		JFrame frame_userinfo = new JFrame(); // 登入的frame
+		JFrame frame_userinfo = new JFrame("登入"); // 登入的frame
 		JPanel panel_userinfo = new JPanel(); // 登入的panel
 	
 		JTextField text_id; // 輸入用戶帳號
@@ -240,14 +246,26 @@ public class User {
 		JButton button_login; //登入按鈕
 		JButton button_back; //返回按鈕
 		
-		ImageIcon button_confirm_icon=new ImageIcon("button_confirm.png");
-		ImageIcon button_back_icon=new ImageIcon("button_back.png");
+
+		JLabel label_user;
+		label_user = new JLabel("帳號");
+		label_user.setBounds(167,154,61,30);
+		panel_userinfo.add(label_user);
+
+		JLabel label_password;
+		label_password = new JLabel("密碼");
+		label_password.setBounds(167,195,61,30);
+		panel_userinfo.add(label_password);
+
+		JLabel label_identity;
+		label_identity = new JLabel("身分");
+		label_identity.setBounds(167,236,61,30);
+		panel_userinfo.add(label_identity);
 	
 		//frame panel setup
 		frame_userinfo.setSize(600,440);
 	    JFrame.setDefaultLookAndFeelDecorated(true);
 	    JDialog.setDefaultLookAndFeelDecorated(true);	
-	    ImageIcon icon=new ImageIcon("frame_login_icon.png");
 
 		frame_userinfo.setLocationRelativeTo(null);
 		frame_userinfo.setResizable(false);
@@ -271,19 +289,15 @@ public class User {
 		panel_userinfo.add(combobox_identity);
 	
 		// button_login setup
-		button_login = new JButton(button_confirm_icon);
+		button_login = new JButton("登入");
 		button_login.setBounds(262, 304, 77, 35);
 		panel_userinfo.add(button_login);
 
 		//button_back setup
-		button_back = new JButton(button_back_icon);
+		button_back = new JButton("返回");
 		button_back.setBounds(17, 13, 84, 34);
 		panel_userinfo.add(button_back);
 
-		//background setup
-		JLabel background = new JLabel(icon);
-		panel_userinfo.add(background, new Integer(Integer.MIN_VALUE));
-		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 
 		frame_userinfo.setVisible(true);
 
@@ -436,19 +450,16 @@ public class User {
 			label_recommend.setBounds(34, 119, 300, 25); 
 			panel_menu.add(label_recommend);
 		}
+		JLabel label_rules;
+		label_rules = new JLabel("<html><body>學生: 最多5本/天 期限7天<br>教師: 最多10本/天 期限21天<br>職員:最多5本/天 期限14天<br>罰款 : 10元/天</body></html>");
+		label_rules.setBounds(63,220,194,158);
+		panel_menu.add(label_rules);
 
-
-		ImageIcon button_exit_icon=new ImageIcon("button_exit.png");
-		ImageIcon button_borrow_icon=new ImageIcon("button_borrow.png");
-		ImageIcon button_return_icon=new ImageIcon("button_return.png");
-		ImageIcon button_searchbook_icon=new ImageIcon("button_searchbook.png");
-		ImageIcon button_history_icon=new ImageIcon("button_history.png");
   		
 		//frame panel setup
 		frame_menu.setSize(600, 440);
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		JDialog.setDefaultLookAndFeelDecorated(true);	
-		ImageIcon icon=new ImageIcon("frame_menu_icon.png");
 
 		frame_menu.setLocationRelativeTo(null);
 		frame_menu.setResizable(false);
@@ -457,34 +468,30 @@ public class User {
 		panel_menu.setLayout(null);
 		
 		// 借書button_borrow setup
-		button_borrow = new JButton(button_borrow_icon);
+		button_borrow = new JButton("借書");
 		button_borrow.setBounds(360, 30, 214, 79);
 		panel_menu.add(button_borrow);
 
 		// 還書button_return setup
-		button_return = new JButton(button_return_icon);
+		button_return = new JButton("還書");
 		button_return.setBounds(360, 120, 214, 79);
 		panel_menu.add(button_return);
 
 		// 查詢書籍button_searchbook setup
-		button_searchbook = new JButton(button_searchbook_icon);
+		button_searchbook = new JButton("查詢書籍");
 		button_searchbook.setBounds(360, 210, 214, 79);
 		panel_menu.add(button_searchbook);
 
 		// 查詢借閱紀錄button_history setup
-		button_history = new JButton(button_history_icon);
+		button_history = new JButton("查詢借閱紀錄");
 		button_history.setBounds(360, 300, 214, 79);
 		panel_menu.add(button_history);
 		
 		// 離開button_exit setup
-		button_exit = new JButton(button_exit_icon);
+		button_exit = new JButton("離開");
 		button_exit.setBounds(17, 12, 84, 34);
 		panel_menu.add(button_exit);
 
-		//background setup
-		JLabel background = new JLabel(icon);
-		panel_menu.add(background, new Integer(Integer.MIN_VALUE));
-		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 
 		frame_menu.setVisible(true);
 
@@ -823,24 +830,16 @@ public class User {
 		JButton button_searchbook;
 		JButton button_getLibrary;
 		JButton button_exit;
-		
-		ImageIcon button_exit_icon=new ImageIcon("button_exit.png");
-		ImageIcon button_addBook_icon=new ImageIcon("button_addBook.png");
-		ImageIcon button_deletebook_icon=new ImageIcon("button_deletebook.png");
-		ImageIcon button_editBook_icon=new ImageIcon("button_editBook.png");
-		ImageIcon button_getLibrary_icon=new ImageIcon("button_getLibrary.png");
-		ImageIcon button_searchbook_admin_icon=new ImageIcon("button_searchbook_admin.png");
 		   
 	  	JLabel label_adminname;
-	  	label_adminname = new JLabel(" ");// label_username.setText(String); 更改顯示
-	  	label_adminname.setBounds(96, 52, 120, 25); //顯示用戶名
+	  	label_adminname = new JLabel("Hi~ 管理員");// label_username.setText(String); 更改顯示
+	  	label_adminname.setBounds(72, 128, 89, 25); //顯示用戶名
 	  	panel_adminmenu.add(label_adminname);
 
 		//frame panel setup
 		frame_adminmenu.setSize(600, 440);
 	    JFrame.setDefaultLookAndFeelDecorated(true);
 	    JDialog.setDefaultLookAndFeelDecorated(true);	
-	    ImageIcon icon=new ImageIcon("frame_admin_menu_icon.png");
 
 		frame_adminmenu.setLocationRelativeTo(null);
 		frame_adminmenu.setResizable(false);
@@ -851,39 +850,34 @@ public class User {
 		
 		
 		// 新增書籍button_addbook setup
-		button_addbook = new JButton(button_addBook_icon);
+		button_addbook = new JButton("新增書籍");
 		button_addbook.setBounds(231, 68, 143, 116);
 		panel_adminmenu.add(button_addbook);
 
 		// 刪除書籍button_deletbook setup
-		button_deletbook = new JButton(button_deletebook_icon);
+		button_deletbook = new JButton("刪除書籍");
 		button_deletbook.setBounds(408, 68, 143, 116);
 		panel_adminmenu.add(button_deletbook);
 
 		// 修改書籍資料button_editbook setup
-		button_editbook = new JButton(button_editBook_icon);
+		button_editbook = new JButton("修改書籍資料");
 		button_editbook.setBounds(47, 215, 143, 116);
 		panel_adminmenu.add(button_editbook);
 		
 		// 查詢書籍button_searchbook setup
-		button_searchbook = new JButton(button_searchbook_admin_icon);
+		button_searchbook = new JButton("查詢書籍");
 		button_searchbook.setBounds(228, 214, 143, 116);
 		panel_adminmenu.add(button_searchbook);
 		
 		// 顯示所有書籍button_getLibrary setup
-		button_getLibrary = new JButton(button_getLibrary_icon);
+		button_getLibrary = new JButton("所有書籍");
 		button_getLibrary.setBounds(408, 215, 143, 116);
 		panel_adminmenu.add(button_getLibrary);
 		
 		// 離開button_exit setup
-		button_exit = new JButton(button_exit_icon);
+		button_exit = new JButton("離開");
 		button_exit.setBounds(17, 13, 84, 34);
 		panel_adminmenu.add(button_exit);
-
-		//background setup
-		JLabel background = new JLabel(icon);
-		panel_adminmenu.add(background, new Integer(Integer.MIN_VALUE));
-		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 
 		frame_adminmenu.setVisible(true);
 
