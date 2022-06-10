@@ -571,14 +571,14 @@ public class User {
 					break;
 				}else{
 					int i = Integer.parseInt(borrowID);
-					if(member().borrowed.size() == member().borrowLimit()){
+					if(member().getBorrowed().size() == member().borrowLimit()){
 						String show = String.format("你已借%d本書,不能再借了", member().borrowLimit());
 						JOptionPane.showMessageDialog(null, show);
 						decision = 1;
 					}
 					else if(library.get(i).getStatus()==true){ //沒有被借走
 						library.get(i).setStatus(false);
-						member().borrowed.add(library.get(i)); //加到借閱書列中
+						member().getBorrowed().add(library.get(i)); //加到借閱書列中
 	
 						library.get(i).setdate1(JOptionPane.showInputDialog(null, "借閱日期?\n(請照yyyy-mm-dd格式輸入)", date));
 	
@@ -593,7 +593,7 @@ public class User {
 				
 			}
 
-		}while (decision == 0 && member().borrowed.size()<member().borrowLimit());
+		}while (decision == 0 && member().getBorrowed().size()<member().borrowLimit());
 		menu_gui();
 	}
 
@@ -603,9 +603,9 @@ public class User {
 		String record = "";
 		String [] text = new String[10];
         String date =  String.format("%d-%02d-%02d", LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
-		for(i = 0 ; i< member().borrowed.size();i++){
+		for(i = 0 ; i< member().getBorrowed().size();i++){
 			if(text[i]==null){
-				text[i]= member().borrowed.get(i).getBookname();}
+				text[i]= member().getBorrowed().get(i).getBookname();}
         }
         String [] options = new String [i];
         if(text[0]==null){
@@ -617,13 +617,13 @@ public class User {
         }
 		int choice = JOptionPane.showOptionDialog(null,"選擇要還的書：","訊息",1,1,null,options,options[0]);
 
-		member().borrowed.get(choice).setdate2(JOptionPane.showInputDialog(null, "還書日期?\n(請照yyyy-mm-dd格式輸入)", date));
+		member().getBorrowed().get(choice).setdate2(JOptionPane.showInputDialog(null, "還書日期?\n(請照yyyy-mm-dd格式輸入)", date));
 
-        record += String.format("書名: %s\t作者: %s\t出版社: %s\t分類: %s\t借閱日期: %s\t還書日期: %s\t", member().borrowed.get(choice).getBookname(), member().borrowed.get(choice).getAuthor(), member().borrowed.get(choice).getPublisher(), member().borrowed.get(choice).getStyle(),member().borrowed.get(choice).getdate1(), member().borrowed.get(choice).getdate2());
+        record += String.format("書名: %s\t作者: %s\t出版社: %s\t分類: %s\t借閱日期: %s\t還書日期: %s\t", member().getBorrowed().get(choice).getBookname(), member().getBorrowed().get(choice).getAuthor(), member().getBorrowed().get(choice).getPublisher(), member().getBorrowed().get(choice).getStyle(),member().getBorrowed().get(choice).getdate1(), member().getBorrowed().get(choice).getdate2());
 		long fee = 0;
 
-		LocalDate date1 = LocalDate.parse(member().borrowed.get(choice).getdate1());
-		LocalDate date2 = LocalDate.parse(member().borrowed.get(choice).getdate2());
+		LocalDate date1 = LocalDate.parse(member().getBorrowed().get(choice).getdate1());
+		LocalDate date2 = LocalDate.parse(member().getBorrowed().get(choice).getdate2());
 
 		long ok = ChronoUnit.DAYS.between(date1, date2);
 
@@ -638,9 +638,9 @@ public class User {
             record += String.format("過期: %d天\t罰款: %d元\n", ok, fee);
 		}
 
-		member().borrowed.get(choice).setStatus(true);
-        member().history.add(member().borrowed.get(choice)); //加入紀錄
-		member().borrowed.remove(choice);
+		member().getBorrowed().get(choice).setStatus(true);
+        member().getHistory().add(member().getBorrowed().get(choice)); //加入紀錄
+		member().getBorrowed().remove(choice);
         member().newRecord(record); 
         
 		JOptionPane.showMessageDialog(null,"還書成功"+ ((fee==0)?"":"過期 : " + ok + "天 罰款 : " + fee + " 元"));
@@ -651,7 +651,7 @@ public class User {
 	public static void history() {
         String borrowing="";
 
-        for(Book borrow : member().borrowed){
+        for(Book borrow : member().getBorrowed()){
             String show = String.format("書名: %s\t作者: %s\t出版社: %s\t分類: %s\t借閱日期: %s\n", borrow.getBookname(), borrow.getAuthor(), borrow.getPublisher(), borrow.getStyle(), borrow.getdate1());
             borrowing += show;
         }
